@@ -36,10 +36,10 @@ export class Tank extends GameObject {
         this.#orientation = orientation;
     }
     draw(ctx) {
-        let angleInRadians = this.orientation;
-        let a = (this.position.x * this.tileSize) + this.tileSize / 2;
-        let b = (this.position.y * this.tileSize) + this.tileSize / 2
-        ctx.translate(a, b);
+        let angleInRadians = this.orientationInRadians;
+        let x = (this.position.x * this.tileSize) + this.tileSize / 2;
+        let y = (this.position.y * this.tileSize) + this.tileSize / 2
+        ctx.translate(x, y);
         ctx.rotate(angleInRadians);
 
         ctx.drawImage(
@@ -50,10 +50,10 @@ export class Tank extends GameObject {
             this.tileSize  //height  
         ) 
         ctx.rotate(-angleInRadians)    
-        ctx.translate( -a, -b);
+        ctx.translate( -x, -y);
     }
 
-    get orientation() {
+    get orientationInRadians() {
         if (this.#orientation === "left") {
             return Math.PI*1.5;
         } else if (this.#orientation === "up") {
@@ -65,6 +65,10 @@ export class Tank extends GameObject {
         }
     }
 
+    get orientation() {
+        return this.#orientation;
+    }
+
     set orientation(newOrientation) {
         if (newOrientation === "left" 
         || newOrientation === "up"
@@ -73,6 +77,7 @@ export class Tank extends GameObject {
             this.#orientation = newOrientation;
         }
     }
+
 }
 
 
@@ -82,7 +87,9 @@ export class PlayerTank extends Tank {
     }
 
     move() {
+
     }
+   
 
     playerShoot() {
     }
@@ -95,14 +102,14 @@ export class EnemyTank extends Tank {
     }
 
     move() {
-        if(this.orientation === "top") {            
+        if(this.orientation === "up") {            
             this.position.y -= 1;
         } else if(this.orientation === "right") {
             this.position.x += 1;
-        } else if(this.orientation === "up") {
-            this.position.y += 1; 
         } else if(this.orientation === "down") {
-            this.position.x -= 1;
+            this.position.y += 1; 
+        } else if(this.orientation === "left") {
+            this.position.x += 1;
         }
     }
     

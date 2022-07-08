@@ -62,6 +62,8 @@ function draw(canvas, ctx) {
 }
 
 function gameStep() {
+        tanks.forEach((tank) => tank.move())
+
 /**
       * this is the place where you should do the main steps of the game cycle
       * for example, it seems to us that we could do the following
