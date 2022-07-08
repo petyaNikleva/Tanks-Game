@@ -1,4 +1,6 @@
-import {PlayerTank, EnemyTank, Wall } from './gameObjects/GameObjects.js'
+import { Wall }  from './gameObjects/Wall.js';
+import { EnemyTank } from './gameObjects/EnemyTank.js';
+import { PlayerTank } from './gameObjects/PlayerTank.js';
 
 const MAP = [
     [2, 0, 0, 3, 0, 0, 2, 0, 0, 3, 0, 0, 2],
