@@ -11,7 +11,6 @@ class GameObject {
         this.sprite = new Image();
         this.sprite.src = `../img/${this.picture}`
     }
-
 }
 
 export class Wall extends GameObject {
@@ -40,8 +39,6 @@ export class Tank extends GameObject {
         let angleInRadians = this.orientation;
         let a = (this.position.x * this.tileSize) + this.tileSize / 2;
         let b = (this.position.y * this.tileSize) + this.tileSize / 2
-        var width = this.tileSize;
-        var height = this.tileSize;
         ctx.translate(a, b);
         ctx.rotate(angleInRadians);
 
@@ -49,8 +46,8 @@ export class Tank extends GameObject {
             this.sprite,
             -this.tileSize / 2,
             -this.tileSize / 2,
-            width,
-            height      
+            this.tileSize, //width
+            this.tileSize  //height  
         ) 
         ctx.rotate(-angleInRadians)    
         ctx.translate( -a, -b);
@@ -63,7 +60,7 @@ export class Tank extends GameObject {
             return 0;
         } else if (this.#orientation === "right") {
             return Math.PI/2;
-        } else {
+        } else { // down
             return Math.PI;
         }
     }
@@ -76,7 +73,6 @@ export class Tank extends GameObject {
             this.#orientation = newOrientation;
         }
     }
-
 }
 
 
@@ -96,7 +92,6 @@ export class PlayerTank extends Tank {
 export class EnemyTank extends Tank {
     constructor(name, position, tileSize) {
         super(name, position, tileSize, 'enemy-tank.png', "down");
-        
     }
 
     move() {
@@ -112,7 +107,6 @@ export class EnemyTank extends Tank {
     }
     
     enemyShoot() {
-        return `${this.name} I can shoot back`
     }
 }
 
