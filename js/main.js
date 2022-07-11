@@ -1,15 +1,14 @@
 import GameMap from "./map.js";
+import { Drawer } from "./helper/drawer.js";
 
 const canvas = document.getElementById('game-map')
-
-const ctx = canvas.getContext('2d')
 
 
 var GAME_TIMER_INTERVAL = 1000; // sets the time interval for which one step in the game will be performed
 var PLAYER_LIFE_COUNT = 3;
 var ENEMY_TANKS_COUNT = 21;
 var IS_GAME_OVER = false;
-const tileSize = 64
+
 /**
  * in this function, you can execute all the code that is necessary to start the game
  * for example, it is in this place that you can draw wall blocks on the map and subscribe to the events of pressing the control buttons 
@@ -17,6 +16,7 @@ const tileSize = 64
 
 let tanks = [];
 let walls = [];
+let drawer;
 gameInitialization();
 
 
@@ -33,13 +33,12 @@ function gameInitialization() {
     const gameObjects = gameMap.generateObjects();
     tanks = gameObjects.tanks;
     walls = gameObjects.walls;
-    canvas.height = gameMap.MAP.length * tileSize;
-    canvas.width = gameMap.MAP[0].length * tileSize;
+    drawer = new Drawer(canvas, gameMap.MAP.length, gameMap.MAP[0].length);
 }
 
 function gameLoop() {
     
-    draw(canvas, ctx);
+    draw();
 
     if (IS_GAME_OVER !== true) {
 
@@ -55,10 +54,11 @@ function gameLoop() {
     }
 }
 
-function draw(canvas, ctx) {
-    clearCanvas(canvas, ctx)
-    tanks.forEach( (tank) => tank.draw(ctx) );
-    walls.forEach( (wall) => wall.draw(ctx) );
+function draw() {
+    drawer.clearCanvas()
+    tanks.forEach( (tank) => drawer.drawTankSprite(tank.sprite, tank.position, tank.orientation) );
+    walls.forEach( (wall) => drawer.drawWallSprite(wall.sprite, wall.position) )
+  
 }
 
 function gameStep() {
@@ -76,8 +76,8 @@ function gameStep() {
       */
 }
 
-function clearCanvas(canvas, ctx) {
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
+// function clearCanvas(canvas, ctx) {
+//     ctx.fillStyle = "black";
+//     ctx.fillRect(0, 0, canvas.width, canvas.height);
+// }
 
