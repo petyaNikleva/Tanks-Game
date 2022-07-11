@@ -23,9 +23,9 @@ export class Drawer {
     }
 
     drawTankSprite(sprite, position, orientation) {
-        let angleInRadians = this.#orientationInRadians(orientation);
-        let x = (position.x * this.#tileSize) + this.#tileSize / 2;
-        let y = (position.y * this.#tileSize) + this.#tileSize / 2
+        const angleInRadians = this.#orientationInRadians[orientation];
+        const x = (position.x * this.#tileSize) + this.#tileSize / 2;
+        const y = (position.y * this.#tileSize) + this.#tileSize / 2
         this.ctx.translate(x, y);
         this.ctx.rotate(angleInRadians);
 
@@ -40,18 +40,10 @@ export class Drawer {
         this.ctx.translate(-x, -y);
     }
 
-    #orientationInRadians(orientation) {
-        if (orientation === "left") {
-            return Math.PI * 1.5;
-        } else if (orientation === "up") {
-            return 0;
-        } else if (orientation === "right") {
-            return Math.PI / 2;
-        } else { // down
-            return Math.PI;
-        }
+    #orientationInRadians = {
+        "left": Math.PI * 1.5,
+        "up": 0,
+        "right": Math.PI / 2,
+        "down": Math.PI
     }
-
-    
-
 }
