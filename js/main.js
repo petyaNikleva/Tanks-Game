@@ -1,5 +1,6 @@
 import GameMap from "./map.js";
 import { Drawer } from "./helper/drawer.js";
+import { DirectionInput } from "./helper/directionInput.js";
 
 const canvas = document.getElementById('game-map')
 
@@ -17,6 +18,7 @@ var IS_GAME_OVER = false;
 let tanks = [];
 let walls = [];
 let drawer;
+let keyboardInput;
 gameInitialization();
 
 
@@ -34,6 +36,9 @@ function gameInitialization() {
     tanks = gameObjects.tanks;
     walls = gameObjects.walls;
     drawer = new Drawer(canvas, gameMap.MAP.length, gameMap.MAP[0].length);
+    keyboardInput = new DirectionInput()
+    keyboardInput.init();
+    keyboardInput.direction // "down" or undefined
 }
 
 function gameLoop() {
@@ -56,13 +61,14 @@ function gameLoop() {
 
 function draw() {
     drawer.clearCanvas()
-    tanks.forEach( (tank) => drawer.drawTankSprite(tank.sprite, tank.position, tank.orientation) );
+    tanks.forEach( (tank) => drawer.drawTankSprite(tank.sprite, tank.position, tank.orientation))
     walls.forEach( (wall) => drawer.drawWallSprite(wall.sprite, wall.position) )
   
 }
 
 function gameStep() {
-        tanks.forEach((tank) => tank.move())
+        tanks.forEach((tank) => tank.move(keyboardInput.direction));
+        //keyboardInput.heldDirections = [];
 
 /**
       * this is the place where you should do the main steps of the game cycle
