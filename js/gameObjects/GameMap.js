@@ -1,4 +1,4 @@
-import { Wall }  from './Wall.js';
+import { Wall } from './Wall.js';
 import { EnemyTank } from './Tanks/EnemyTank.js';
 import { PlayerTank } from './Tanks/PlayerTank.js';
 
@@ -19,7 +19,7 @@ const MAP = [
     [0, 0, 0, 0, 1, 3, 0, 3, 0, 0, 0, 0, 0]
 ];
 
-// var MAP_LEGEND = {
+// let MAP_LEGEND = {
 //     PLAYER_BASE: 1,
 //     ENEMY_BASE: 2,
 //     WALL: 3
@@ -28,26 +28,19 @@ const MAP = [
 
 export default class GameMap {
     constructor() {
-        this.wall = this.#image('wall.png');
-        this.MAP = MAP; 
+        this.MAP = MAP;
+        this.width = MAP[0].length - 1;
+        this.height = MAP.length - 1;
     }
-
-    #image(fileName) {
-        const img = new Image();
-        img.src = `../img/${fileName}`
-        return img;
-    };
 
     generateObjects() {
         const tanks = [];
         const walls = [];
         for (let row = 0; row < this.MAP.length; row++) {
-            for (let column = 0; column < this.MAP[row].length ; column++) {
+            for (let column = 0; column < this.MAP[row].length; column++) {
                 const tile = this.MAP[row][column];
-                let image = null;
                 switch (tile) {
                     case 3:
-                        image = this.wall;
                         const wall = new Wall('wall' + row + '-' + column, {
                             x: column,
                             y: row
@@ -77,5 +70,5 @@ export default class GameMap {
         }
     }
 
-   
+
 }

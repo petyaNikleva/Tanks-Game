@@ -1,8 +1,5 @@
 import { Tank } from "./Tank.js";
 
-
-
-
 export class EnemyTank extends Tank {
 
     constructor(name, position) {
@@ -14,7 +11,16 @@ export class EnemyTank extends Tank {
        this.direction[this.orientation]();
     }
    
-
+    moveBack() {
+        super.moveBack();
+        this.#changeOrientationRandomly(); 
+    }
+    #changeOrientationRandomly() {
+        const dir = ["up" ,"right", "down", "left"];
+        const random = Math.floor(Math.random() * dir.length);
+        const randomOrientation = dir[random];
+        this.orientation = randomOrientation;
+    }
    
 }
 

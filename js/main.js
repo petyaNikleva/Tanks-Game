@@ -24,9 +24,9 @@ gameLoop();
 function gameLoop() {
     draw();
     if (game.IS_GAME_OVER !== true) {
-        
-         //* it is in the gameStep function that you should place the code that will be executed at each step of the game cycle
-       
+
+        //* it is in the gameStep function that you should place the code that will be executed at each step of the game cycle
+
         gameStep();
 
 
@@ -45,15 +45,14 @@ function draw() {
 
 function gameStep() {
     game.tanks.forEach((tank) => {
-
         tank.move(keyboardInput.direction);
-        const arrWalls = game.walls;
-        const collision = arrWalls.some(wall => wall.position.x === tank.position.x && wall.position.y === tank.position.y) 
-            if (collision) {
-                tank.moveBack()
-            }
-        
-    }) 
+        const collision = game.walls.some(wall => wall.position.x === tank.position.x && wall.position.y === tank.position.y);
+        const notIinRange = tank.position.x < 0 || tank.position.x > gameMap.width || tank.position.y < 0 || tank.position.y > gameMap.height
+        if (collision || notIinRange) {
+            tank.moveBack();
+        }
+
+    })
     //keyboardInput.heldDirections = [];
 
     /**
