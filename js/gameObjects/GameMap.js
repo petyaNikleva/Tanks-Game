@@ -1,6 +1,6 @@
-import { Wall }  from './gameObjects/Wall.js';
-import { EnemyTank } from './gameObjects/EnemyTank.js';
-import { PlayerTank } from './gameObjects/PlayerTank.js';
+import { Wall }  from './Wall.js';
+import { EnemyTank } from './EnemyTank.js';
+import { PlayerTank } from './PlayerTank.js';
 
 const MAP = [
     [2, 0, 0, 3, 0, 0, 2, 0, 0, 3, 0, 0, 2],
@@ -19,13 +19,12 @@ const MAP = [
     [0, 0, 0, 0, 1, 3, 0, 3, 0, 0, 0, 0, 0]
 ];
 
-var MAP_LEGEND = {
-    PLAYER_BASE: 1,
-    ENEMY_BASE: 2,
-    WALL: 3
-}
+// var MAP_LEGEND = {
+//     PLAYER_BASE: 1,
+//     ENEMY_BASE: 2,
+//     WALL: 3
+// }
 
-const tileSize = 64
 
 export default class GameMap {
     constructor() {
@@ -52,30 +51,26 @@ export default class GameMap {
                         const wall = new Wall('wall' + row + '-' + column, {
                             x: column,
                             y: row
-                        },
-                        tileSize)
+                        })
                         walls.push(wall);
                         break;
                     case 1:
                         const playerTank = new PlayerTank('playertank' + row + '-' + column, {
                             x: column,
                             y: row
-                        }, 
-                        tileSize)
+                        })
                         tanks.push(playerTank)
                         break;
                     case 2:
                         const enemyTank = new EnemyTank('EnemyTank' + row + '-' + column, {
                             x: column,
                             y: row
-                        },
-                        tileSize)
+                        })
                         tanks.push(enemyTank)
                         break;
                 }
             }
         }
-
         return {
             tanks,
             walls

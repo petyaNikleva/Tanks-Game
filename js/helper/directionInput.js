@@ -8,13 +8,14 @@ export class DirectionInput {
             "ArrowLeft": "left",
             "ArrowRight": "right"
         }
+        this.#init();
     }
 
     get direction() {
         return this.heldDirections[0];
     }
 
-    init() {
+    #init() {
         document.addEventListener("keydown", e => {
             const dir = this.map[e.code];
             if (dir && this.heldDirections.indexOf(dir) === -1) {

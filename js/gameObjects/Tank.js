@@ -2,7 +2,7 @@ import { BaseObject } from "./BaseObject.js";
 
 export class Tank extends BaseObject {
     direction = {
-        "up": () => this.position.y -=1,
+        "up": () => this.position.y -= 1,
         "right": () => this.position.x += 1,
         "down": () => this.position.y += 1,
         "left": () => this.position.x -= 1
@@ -29,6 +29,5 @@ export class Tank extends BaseObject {
     move() {
     }
 
-    update() {
-    }
+    
 }
