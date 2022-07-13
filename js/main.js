@@ -1,6 +1,6 @@
 import GameMap from "./gameObjects/GameMap.js";
-import { Drawer } from "./helper/drawer.js";
-import { DirectionInput } from "./helper/directionInput.js";
+import { Drawer } from "./helper/Drawer.js";
+import { DirectionInput } from "./helper/DirectionInput.js";
 import { Game } from "./gameObjects/Game.js";
 
 
@@ -46,9 +46,7 @@ function draw() {
 function gameStep() {
     game.tanks.forEach((tank) => {
         tank.move(keyboardInput.direction);
-        const collision = game.walls.some(wall => wall.position.x === tank.position.x && wall.position.y === tank.position.y);
-        const notIinRange = tank.position.x < 0 || tank.position.x > gameMap.width || tank.position.y < 0 || tank.position.y > gameMap.height
-        if (collision || notIinRange) {
+        if (tank.isCollised(game.walls, gameMap)) {
             tank.moveBack();
         }
 

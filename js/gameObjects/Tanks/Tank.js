@@ -25,10 +25,7 @@ export class Tank extends BaseObject {
     }
 
     set orientation(newOrientation) {
-        if (newOrientation === "left" 
-        || newOrientation === "up"
-        || newOrientation === "right"
-        || newOrientation === "down") {
+        if (this.direction[newOrientation]) {
             this.#orientation = newOrientation;
         }
     }
@@ -40,5 +37,14 @@ export class Tank extends BaseObject {
         this.backDirection[this.orientation]();
     }
 
-    
+    isCollised(walls, gameMap) {
+        const collision = walls.some(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
+        const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
+        if (collision || notIinRange) {
+            return true;
+        }
+    }
+
+    shoot() {
+    }
 }
