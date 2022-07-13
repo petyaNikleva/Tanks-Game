@@ -1,4 +1,5 @@
 import { Tank } from "./Tank.js";
+import { movingDirections } from "../../helper/movingDirections.js";
 
 export class EnemyTank extends Tank {
 
@@ -16,7 +17,7 @@ export class EnemyTank extends Tank {
         this.#changeOrientationRandomly(); 
     }
     #changeOrientationRandomly() {
-        const dir = ["up" ,"right", "down", "left"];
+        const dir = Object.keys(movingDirections);
         const random = Math.floor(Math.random() * dir.length);
         const randomOrientation = dir[random];
         this.orientation = randomOrientation;

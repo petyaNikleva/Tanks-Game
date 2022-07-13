@@ -1,22 +1,23 @@
 import { BaseObject } from "../BaseObject.js";
+import { movingDirections } from "../../helper/movingDirections.js";
 
 export class Tank extends BaseObject {
     #orientation;
     constructor(name, position, picture, orientation) {
         super(name, position, picture);
         this.#orientation = orientation;
-        
+
         this.direction = {
-            "up": () => this.position.y -= 1,
-            "right": () => this.position.x += 1,
-            "down": () => this.position.y += 1,
-            "left": () => this.position.x -= 1
+            [movingDirections.up]: () => this.position.y -= 1,
+            [movingDirections.right]: () => this.position.x += 1,
+            [movingDirections.down]: () => this.position.y += 1,
+            [movingDirections.left]: () => this.position.x -= 1
         }
         this.backDirection = {
-            "up": () => this.position.y += 1,
-            "right": () => this.position.x -= 1,
-            "down": () => this.position.y -= 1,
-            "left": () => this.position.x += 1
+            [movingDirections.up]: () => this.position.y += 1,
+            [movingDirections.right]: () => this.position.x -= 1,
+            [movingDirections.down]: () => this.position.y -= 1,
+            [movingDirections.left]: () => this.position.x += 1
         }
     }
 
