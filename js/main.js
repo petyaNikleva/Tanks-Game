@@ -13,6 +13,7 @@ const keyboardInput = new DirectionInput();
 
 game.tanks = gameObjects.tanks;
 game.walls = gameObjects.walls;
+game.gameObjects = gameObjects.gameObjects;
 
 /**
  * Game lifecycle
@@ -38,8 +39,7 @@ function gameLoop() {
 
 function draw() {
     drawer.clearCanvas();
-    game.tanks.forEach((tank) => drawer.drawTankSprite(tank.sprite, tank.position, tank.orientation));
-    game.walls.forEach((wall) => drawer.drawWallSprite(wall.sprite, wall.position));
+    game.gameObjects.forEach((gameObj) => drawer.drawSprite(gameObj.sprite, gameObj.position, gameObj.orientation));   
 
 }
 

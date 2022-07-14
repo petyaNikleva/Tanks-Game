@@ -64,9 +64,11 @@ export default class GameMap {
                 }
             }
         }
+        const gameObjects = tanks.concat(walls);
         return {
             tanks,
-            walls
+            walls,
+            gameObjects,
         }
     }
 
