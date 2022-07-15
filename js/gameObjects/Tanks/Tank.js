@@ -5,7 +5,12 @@ export class Tank extends BaseObject {
     #orientation;
     constructor(name, position, picture, orientation) {
         super(name, position, picture);
+        this.oldPosition = {
+            x: this.position.x,
+            y: this.position.y
 
+        }
+       
         this.#orientation = orientation;
         this.speed = 1;
 

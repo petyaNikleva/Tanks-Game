@@ -1,6 +1,5 @@
 import GameMap from "./gameObjects/GameMap.js";
 import { Drawer } from "./helper/Drawer.js";
-import { DirectionInput } from "./helper/DirectionInput.js";
 import { Game } from "./gameObjects/Game.js";
 
 
@@ -9,47 +8,52 @@ const game = new Game();
 const gameMap = new GameMap();
 const gameObjects = gameMap.generateObjects();
 const drawer = new Drawer(canvas, gameMap.MAP.length, gameMap.MAP[0].length);
-const keyboardInput = new DirectionInput();
+
 
 game.tanks = gameObjects.tanks;
 game.walls = gameObjects.walls;
-
 /**
  * Game lifecycle
  * calls the gameLoop function every GAME_TIMER_INTERVAL until the game ends
  * (to end the game, set IS_GAME_OVER to true)
 */
+game.frameCounter = 0;
 gameLoop();
 
+
 function gameLoop() {
-    draw();
+    draw(game.frameCounter);
+    if (game.frameCounter === game.FRAMES_COUNTER) {
+        game.frameCounter = 0;
+    }
+
     if (game.IS_GAME_OVER !== true) {
-        const counter = 1;
         //* it is in the gameStep function that you should place the code that will be executed at each step of the game cycle
-
-        gameStep();
-
-
+        if (game.frameCounter === 0) {
+            gameStep();
+        }
         setTimeout(function () {
             gameLoop()
         }, game.GAME_TIMER_INTERVAL);
     }
+    game.frameCounter++;
 }
 
-function draw() {
+function draw(frameCounter) {
+    const deltaTime = frameCounter / game.FRAMES_COUNTER;
     drawer.clearCanvas();
-    game.walls.forEach((wall) => drawer.wallSprite(wall.sprite, wall.position));   
-    game.tanks.forEach((tank) => drawer.tankSprite(tank.sprite, tank.position, tank.orientation));   
+    game.walls.forEach((wall) => drawer.wallSprite(wall));
+    game.tanks.forEach((tank) => drawer.tankSprite(tank, deltaTime));
 }
 
 function gameStep() {
     game.tanks.forEach((tank) => {
-        tank.move(keyboardInput.direction);
+        tank.move();
         if (tank.isCollised(game.walls, gameMap)) {
             tank.moveBack();
         }
     })
-    //keyboardInput.heldDirections = [];
+
 
     /**
           * this is the place where you should do the main steps of the game cycle

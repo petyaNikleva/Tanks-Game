@@ -5,16 +5,17 @@ export class EnemyTank extends Tank {
 
     constructor(name, position) {
         super(name, position, 'enemy-tank.png', "down");
-        
     }
 
     move() {
-       this.direction[this.orientation]();
+        this.oldPosition.x = this.position.x;
+        this.oldPosition.y = this.position.y;
+        this.direction[this.orientation]();
     }
-   
+
     moveBack() {
         super.moveBack();
-        this.#changeOrientationRandomly(); 
+        this.#changeOrientationRandomly();
     }
     #changeOrientationRandomly() {
         const dir = Object.keys(movingDirections);
@@ -22,7 +23,7 @@ export class EnemyTank extends Tank {
         const randomOrientation = dir[random];
         this.orientation = randomOrientation;
     }
-   
+
 }
 
 

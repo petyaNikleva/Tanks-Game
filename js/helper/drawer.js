@@ -13,18 +13,22 @@ export class Drawer {
     }
 
 
-    wallSprite(sprite, position) {
-        this.drawImg(sprite,
-            position.x * this.#tileSize,
-            position.y * this.#tileSize)
+    wallSprite(wall) {
+        this.drawImg(wall.sprite,
+            wall.position.x * this.#tileSize,
+            wall.position.y * this.#tileSize)
     }
-    tankSprite(sprite, position, orientation) {
-        const angleInRadians = this.#orientationInRadians[orientation];
-        const x = (position.x * this.#tileSize) + this.#tileSize / 2;
-        const y = (position.y * this.#tileSize) + this.#tileSize / 2
+
+    tankSprite(tank, deltaTime) {
+        console.log("-----", deltaTime);
+        const angleInRadians = this.#orientationInRadians[tank.orientation];
+        const intervalX = tank.oldPosition.x + deltaTime * (tank.position.x - tank.oldPosition.x);
+        const intervalY = tank.oldPosition.y + deltaTime * (tank.position.y - tank.oldPosition.y);
+        const x = (intervalX * this.#tileSize) + this.#tileSize / 2;
+        const y = (intervalY * this.#tileSize) + this.#tileSize / 2
         this.ctx.translate(x, y);
         this.ctx.rotate(angleInRadians);
-        this.drawImg(sprite,
+        this.drawImg(tank.sprite,
             -this.#tileSize / 2,
             -this.#tileSize / 2)
         this.ctx.rotate(-angleInRadians);
