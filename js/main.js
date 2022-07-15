@@ -13,7 +13,6 @@ const keyboardInput = new DirectionInput();
 
 game.tanks = gameObjects.tanks;
 game.walls = gameObjects.walls;
-game.gameObjects = gameObjects.gameObjects;
 
 /**
  * Game lifecycle
@@ -25,7 +24,6 @@ gameLoop();
 function gameLoop() {
     draw();
     if (game.IS_GAME_OVER !== true) {
-       
 
         //* it is in the gameStep function that you should place the code that will be executed at each step of the game cycle
 
@@ -40,7 +38,8 @@ function gameLoop() {
 
 function draw() {
     drawer.clearCanvas();
-    game.gameObjects.forEach((gameObj) => drawer.drawSprite(gameObj.sprite, gameObj.position, gameObj.orientation));   
+    game.tanks.forEach((tank) => drawer.drawTankSprite(tank.sprite, tank.position, tank.orientation));
+    game.walls.forEach((wall) => drawer.drawWallSprite(wall.sprite, wall.position));
 
 }
 
@@ -50,8 +49,9 @@ function gameStep() {
         if (tank.isCollised(game.walls, gameMap)) {
             tank.moveBack();
         }
+
     })
-    
+    //keyboardInput.heldDirections = [];
 
     /**
           * this is the place where you should do the main steps of the game cycle

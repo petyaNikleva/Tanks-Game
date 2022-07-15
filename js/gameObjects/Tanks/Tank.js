@@ -5,21 +5,19 @@ export class Tank extends BaseObject {
     #orientation;
     constructor(name, position, picture, orientation) {
         super(name, position, picture);
-
         this.#orientation = orientation;
-        this.speed = 1;
 
         this.direction = {
-            [movingDirections.up]: () => this.position.y -= this.speed,
-            [movingDirections.right]: () => this.position.x += this.speed,
-            [movingDirections.down]: () => this.position.y += this.speed,
-            [movingDirections.left]: () => this.position.x -= this.speed
+            [movingDirections.up]: () => this.position.y -= 1,
+            [movingDirections.right]: () => this.position.x += 1,
+            [movingDirections.down]: () => this.position.y += 1,
+            [movingDirections.left]: () => this.position.x -= 1
         }
         this.backDirection = {
-            [movingDirections.up]: () => this.position.y += this.speed,
-            [movingDirections.right]: () => this.position.x -= this.speed,
-            [movingDirections.down]: () => this.position.y -= this.speed,
-            [movingDirections.left]: () => this.position.x += this.speed,
+            [movingDirections.up]: () => this.position.y += 1,
+            [movingDirections.right]: () => this.position.x -= 1,
+            [movingDirections.down]: () => this.position.y -= 1,
+            [movingDirections.left]: () => this.position.x += 1
         }
     }
 
