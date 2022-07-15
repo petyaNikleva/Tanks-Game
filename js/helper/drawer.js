@@ -12,31 +12,33 @@ export class Drawer {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    drawSprite(sprite, position, orientation) {
-        if (!orientation) {
-            this.ctx.drawImage(
-                sprite,
-                position.x * this.#tileSize,
-                position.y * this.#tileSize,
-                this.#tileSize,
-                this.#tileSize
-            )
-        } else {
-            const angleInRadians = this.#orientationInRadians[orientation];
-            const x = (position.x * this.#tileSize) + this.#tileSize / 2;
-            const y = (position.y * this.#tileSize) + this.#tileSize / 2
-            this.ctx.translate(x, y);
-            this.ctx.rotate(angleInRadians);
-            this.ctx.drawImage(
-                sprite,
-                -this.#tileSize / 2,
-                -this.#tileSize / 2,
-                this.#tileSize,
-                this.#tileSize
-            )
-            this.ctx.rotate(-angleInRadians)
-            this.ctx.translate(-x, -y);
-        }
+
+    wallSprite(sprite, position) {
+        this.drawImg(sprite,
+            position.x * this.#tileSize,
+            position.y * this.#tileSize)
+    }
+    tankSprite(sprite, position, orientation) {
+        const angleInRadians = this.#orientationInRadians[orientation];
+        const x = (position.x * this.#tileSize) + this.#tileSize / 2;
+        const y = (position.y * this.#tileSize) + this.#tileSize / 2
+        this.ctx.translate(x, y);
+        this.ctx.rotate(angleInRadians);
+        this.drawImg(sprite,
+            -this.#tileSize / 2,
+            -this.#tileSize / 2)
+        this.ctx.rotate(-angleInRadians);
+        this.ctx.translate(-x, -y);
+    }
+
+    drawImg(sprite, dx, dy) {
+        return this.ctx.drawImage(
+            sprite,
+            dx,
+            dy,
+            this.#tileSize,
+            this.#tileSize
+        )
     }
 
     #orientationInRadians = {
