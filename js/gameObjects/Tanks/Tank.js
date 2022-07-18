@@ -8,12 +8,10 @@ export class Tank extends BaseObject {
         this.oldPosition = {
             x: this.position.x,
             y: this.position.y
-
         }
        
         this.#orientation = orientation;
         this.speed = 1;
-
 
         this.direction = {
             [movingDirections.up]: {
@@ -33,19 +31,6 @@ export class Tank extends BaseObject {
                 "back": () => this.position.x += this.speed
             }
         }
-
-        // this.direction = {
-        //     [movingDirections.up]: () => this.position.y -= this.speed,
-        //     [movingDirections.right]: () => this.position.x += this.speed,
-        //     [movingDirections.down]: () => this.position.y += this.speed,
-        //     [movingDirections.left]: () => this.position.x -= this.speed
-        // }
-        // this.backDirection = {
-        //     [movingDirections.up]: () => this.position.y += this.speed,
-        //     [movingDirections.right]: () => this.position.x -= this.speed,
-        //     [movingDirections.down]: () => this.position.y -= this.speed,
-        //     [movingDirections.left]: () => this.position.x += this.speed,
-        // }
     }
 
     get orientation() {
@@ -59,6 +44,8 @@ export class Tank extends BaseObject {
     }
 
     move() {
+        this.oldPosition.x = this.position.x;
+        this.oldPosition.y = this.position.y;
     }
 
     moveBack() {

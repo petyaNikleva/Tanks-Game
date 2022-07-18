@@ -13,7 +13,7 @@ export class DirectionInput {
         this.#init();
     }
 
-    get direction() {
+    get dir() {
         return this.heldDirections[0];
     }
 
