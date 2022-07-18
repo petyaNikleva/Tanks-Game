@@ -15,37 +15,37 @@ export class Tank extends BaseObject {
         this.speed = 1;
 
 
-        // this.direction = {
-        //     [movingDirections.up]: {
-        //        "forward": () => this.position.y -= this.speed,
-        //        "back": () => this.position.y += this.speed
-        //     },
-        //     [movingDirections.right]: {
-        //         "forward": () => this.position.x += this.speed,
-        //         "back": () => this.position.x -= this.speed
-        //     },
-        //     [movingDirections.down]: {
-        //         "forward": () => this.position.y += this.speed,
-        //         "back": () => this.position.y -= this.speed
-        //     },
-        //     [movingDirections.left]: {
-        //         "forward": () => this.position.x -= this.speed,
-        //         "back": () => this.position.x += this.speed
-        //     }
-        // }
-
         this.direction = {
-            [movingDirections.up]: () => this.position.y -= this.speed,
-            [movingDirections.right]: () => this.position.x += this.speed,
-            [movingDirections.down]: () => this.position.y += this.speed,
-            [movingDirections.left]: () => this.position.x -= this.speed
+            [movingDirections.up]: {
+               "forward": () => this.position.y -= this.speed,
+               "back": () => this.position.y += this.speed
+            },
+            [movingDirections.right]: {
+                "forward": () => this.position.x += this.speed,
+                "back": () => this.position.x -= this.speed
+            },
+            [movingDirections.down]: {
+                "forward": () => this.position.y += this.speed,
+                "back": () => this.position.y -= this.speed
+            },
+            [movingDirections.left]: {
+                "forward": () => this.position.x -= this.speed,
+                "back": () => this.position.x += this.speed
+            }
         }
-        this.backDirection = {
-            [movingDirections.up]: () => this.position.y += this.speed,
-            [movingDirections.right]: () => this.position.x -= this.speed,
-            [movingDirections.down]: () => this.position.y -= this.speed,
-            [movingDirections.left]: () => this.position.x += this.speed,
-        }
+
+        // this.direction = {
+        //     [movingDirections.up]: () => this.position.y -= this.speed,
+        //     [movingDirections.right]: () => this.position.x += this.speed,
+        //     [movingDirections.down]: () => this.position.y += this.speed,
+        //     [movingDirections.left]: () => this.position.x -= this.speed
+        // }
+        // this.backDirection = {
+        //     [movingDirections.up]: () => this.position.y += this.speed,
+        //     [movingDirections.right]: () => this.position.x -= this.speed,
+        //     [movingDirections.down]: () => this.position.y -= this.speed,
+        //     [movingDirections.left]: () => this.position.x += this.speed,
+        // }
     }
 
     get orientation() {
@@ -53,7 +53,7 @@ export class Tank extends BaseObject {
     }
 
     set orientation(newOrientation) {
-        if (this.direction[newOrientation]) {
+        if (this.direction[newOrientation].forward) {
             this.#orientation = newOrientation;
         }
     }
@@ -62,7 +62,7 @@ export class Tank extends BaseObject {
     }
 
     moveBack() {
-        this.backDirection[this.orientation]();
+        this.direction[this.orientation].back();
     }
 
     isCollised(walls, gameMap) {

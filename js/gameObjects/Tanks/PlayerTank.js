@@ -13,7 +13,7 @@ export class PlayerTank extends Tank {
         if (newDirection === this.orientation) {
             this.oldPosition.x = this.position.x;
             this.oldPosition.y = this.position.y;
-            this.direction[this.orientation]();
+            this.direction[this.orientation].forward();
         } else if (newDirection) {
             this.oldPosition.x = this.position.x;
             this.oldPosition.y = this.position.y;
