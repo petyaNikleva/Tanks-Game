@@ -14,6 +14,26 @@ export class Tank extends BaseObject {
         this.#orientation = orientation;
         this.speed = 1;
 
+
+        // this.direction = {
+        //     [movingDirections.up]: {
+        //        "forward": () => this.position.y -= this.speed,
+        //        "back": () => this.position.y += this.speed
+        //     },
+        //     [movingDirections.right]: {
+        //         "forward": () => this.position.x += this.speed,
+        //         "back": () => this.position.x -= this.speed
+        //     },
+        //     [movingDirections.down]: {
+        //         "forward": () => this.position.y += this.speed,
+        //         "back": () => this.position.y -= this.speed
+        //     },
+        //     [movingDirections.left]: {
+        //         "forward": () => this.position.x -= this.speed,
+        //         "back": () => this.position.x += this.speed
+        //     }
+        // }
+
         this.direction = {
             [movingDirections.up]: () => this.position.y -= this.speed,
             [movingDirections.right]: () => this.position.x += this.speed,

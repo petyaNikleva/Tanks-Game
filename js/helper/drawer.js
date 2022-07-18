@@ -1,3 +1,5 @@
+import { movingDirections } from "./movingDirections.js";
+
 export class Drawer {
     #tileSize = 64;
     constructor(canvas, height, width) {
@@ -46,10 +48,10 @@ export class Drawer {
     }
 
     #orientationInRadians = {
-        "left": Math.PI * 1.5,
-        "up": 0,
-        "right": Math.PI / 2,
-        "down": Math.PI
+        [movingDirections.left]: Math.PI * 1.5,
+        [movingDirections.up]: 0,
+        [movingDirections.right]: Math.PI / 2,
+        [movingDirections.down]: Math.PI
     }
 
 }
