@@ -1,36 +1,42 @@
 import { BaseObject } from "../BaseObject.js";
-import { movingDirections } from "../../helper/movingDirections.js";
+import { possibleDirections } from "../../helper/possibleDirections.js";
+import { Bullet } from "../Bullet.js";
 
 export class Tank extends BaseObject {
     #orientation;
     constructor(name, position, picture, orientation) {
-        super(name, position, picture);
+        super(name, position, picture, orientation);
         this.oldPosition = {
             x: this.position.x,
             y: this.position.y
         }
+        this.bullet;
        
         this.#orientation = orientation;
-        this.speed = 1;
+        //this.speed = 1;
 
-        this.direction = {
-            [movingDirections.up]: {
-               "forward": () => this.position.y -= this.speed,
-               "back": () => this.position.y += this.speed
-            },
-            [movingDirections.right]: {
-                "forward": () => this.position.x += this.speed,
-                "back": () => this.position.x -= this.speed
-            },
-            [movingDirections.down]: {
-                "forward": () => this.position.y += this.speed,
-                "back": () => this.position.y -= this.speed
-            },
-            [movingDirections.left]: {
-                "forward": () => this.position.x -= this.speed,
-                "back": () => this.position.x += this.speed
-            }
-        }
+        // this.direction = {
+        //     [possibleDirections.up]: {
+        //        "forward": () => this.position.y -= this.speed,
+        //        "back": () => this.position.y += this.speed,
+        //        "getNextPosition": this.position.y - this.speed,
+        //     },
+        //     [possibleDirections.right]: {
+        //         "forward": () => this.position.x += this.speed,
+        //         "back": () => this.position.x -= this.speed,
+        //         "getNextPosition": this.position.x + this.speed,
+        //     },
+        //     [possibleDirections.down]: {
+        //         "forward": () => this.position.y += this.speed,
+        //         "back": () => this.position.y -= this.speed,
+        //         "getNextPosition": this.position.y + this.speed,
+        //     },
+        //     [possibleDirections.left]: {
+        //         "forward": () => this.position.x -= this.speed,
+        //         "back": () => this.position.x += this.speed,
+        //         "getNextPosition": this.position.x - this.speed,
+        //     }
+        // }
     }
 
     get orientation() {
@@ -38,7 +44,7 @@ export class Tank extends BaseObject {
     }
 
     set orientation(newOrientation) {
-        if (this.direction[newOrientation].forward) {
+        if (this.direction[newOrientation]) {
             this.#orientation = newOrientation;
         }
     }
@@ -61,5 +67,10 @@ export class Tank extends BaseObject {
     }
 
     shoot() {
+        if (!this.bullet)  {
+            const nextPosition = this.direction[this.orientation].getNextPosition;
+            this.bullet = new Bullet (`${this.name}-bullet`, nextPosition)
+        }
+        return this.bullet;
     }
 }

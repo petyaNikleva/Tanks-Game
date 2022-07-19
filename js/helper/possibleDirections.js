@@ -1,4 +1,4 @@
-export const movingDirections = {
+export const possibleDirections = {
     up: "up",
     right: "right",
     down: "down",

@@ -12,6 +12,8 @@ const drawer = new Drawer(canvas, gameMap.MAP.length, gameMap.MAP[0].length);
 
 game.tanks = gameObjects.tanks;
 game.walls = gameObjects.walls;
+
+
 /**
  * Game lifecycle
  * calls the gameLoop function every GAME_TIMER_INTERVAL until the game ends
@@ -43,7 +45,17 @@ function draw(frameCounter) {
     const deltaTime = frameCounter / game.FRAMES_COUNTER;
     drawer.clearCanvas();
     game.walls.forEach((wall) => drawer.wallSprite(wall));
-    game.tanks.forEach((tank) => drawer.tankSprite(tank, deltaTime));
+    game.tanks.forEach((tank) => {
+        drawer.tankSprite(tank, deltaTime);
+        // if  (tank.bullet) {
+        //     drawer.tankSprite(tank.bullet, deltaTime);
+        // }
+        
+    })
+    if (game.bullets.length > 0) {
+        game.bullets.forEach((bullet) => drawer.bulletSprite(bullet, deltaTime));
+    }
+    
 }
 
 function gameStep() {
@@ -52,6 +64,8 @@ function gameStep() {
         if (tank.isCollised(game.walls, gameMap)) {
             tank.moveBack();
         }
+        const bullet = tank.shoot();
+        game.bullets.push(bullet);
     })
 
 

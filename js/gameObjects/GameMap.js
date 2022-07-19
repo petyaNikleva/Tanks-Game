@@ -59,7 +59,7 @@ export default class GameMap {
                             x: column,
                             y: row
                         })
-                        tanks.push(enemyTank)
+                        tanks.push(enemyTank);
                         break;
                 }
             }

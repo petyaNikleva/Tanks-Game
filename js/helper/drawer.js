@@ -1,4 +1,4 @@
-import { movingDirections } from "./movingDirections.js";
+import { possibleDirections } from "./possibleDirections.js";
 
 export class Drawer {
     #tileSize = 64;
@@ -22,7 +22,6 @@ export class Drawer {
     }
 
     tankSprite(tank, deltaTime) {
-        console.log("-----", deltaTime);
         const angleInRadians = this.#orientationInRadians[tank.orientation];
         const intervalX = tank.oldPosition.x + deltaTime * (tank.position.x - tank.oldPosition.x);
         const intervalY = tank.oldPosition.y + deltaTime * (tank.position.y - tank.oldPosition.y);
@@ -37,6 +36,25 @@ export class Drawer {
         this.ctx.translate(-x, -y);
     }
 
+    bulletSprite(bullet, deltaTime) {
+        this.drawImg(bullet.sprite,
+            bullet.position.x * this.#tileSize,
+            bullet.position.y * this.#tileSize)
+        // const angleInRadians = this.#orientationInRadians[bullet.orientation];
+        // const intervalX = bullet.oldPosition.x + deltaTime * (bullet.position.x - bullet.oldPosition.x);
+        // const intervalY = bullet.oldPosition.y + deltaTime * (bullet.position.y - bullet.oldPosition.y);
+        // const x = (intervalX * this.#tileSize) + this.#tileSize / 2;
+        // const y = (intervalY * this.#tileSize) + this.#tileSize / 2
+        // this.ctx.translate(x, y);
+        // this.ctx.rotate(angleInRadians);
+        // this.drawImg(bullet.sprite,
+        //     -this.#tileSize / 2,
+        //     -this.#tileSize / 2)
+        // this.ctx.rotate(-angleInRadians);
+        // this.ctx.translate(-x, -y);
+    }
+  
+
     drawImg(sprite, dx, dy) {
         return this.ctx.drawImage(
             sprite,
@@ -48,10 +66,10 @@ export class Drawer {
     }
 
     #orientationInRadians = {
-        [movingDirections.left]: Math.PI * 1.5,
-        [movingDirections.up]: 0,
-        [movingDirections.right]: Math.PI / 2,
-        [movingDirections.down]: Math.PI
+        [possibleDirections.left]: Math.PI * 1.5,
+        [possibleDirections.up]: 0,
+        [possibleDirections.right]: Math.PI / 2,
+        [possibleDirections.down]: Math.PI
     }
 
 }

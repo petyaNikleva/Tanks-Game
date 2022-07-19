@@ -1,14 +1,14 @@
-import { movingDirections } from "./movingDirections.js";
+import { possibleDirections } from "./possibleDirections.js";
 
 export class DirectionInput {
     constructor() {
         this.heldDirections = [];
 
         this.map = {
-            "ArrowUp": movingDirections.up,
-            "ArrowDown": movingDirections.down,
-            "ArrowLeft": movingDirections.left,
-            "ArrowRight": movingDirections.right
+            "ArrowUp": possibleDirections.up,
+            "ArrowDown": possibleDirections.down,
+            "ArrowLeft": possibleDirections.left,
+            "ArrowRight": possibleDirections.right
         }
         this.#init();
     }

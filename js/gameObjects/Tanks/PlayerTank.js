@@ -16,6 +16,5 @@ export class PlayerTank extends Tank {
         } else if (newDirection) {
             this.orientation = newDirection;
         } 
-    }
-   
+    } 
 }
