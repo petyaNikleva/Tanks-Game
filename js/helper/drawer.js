@@ -37,24 +37,22 @@ export class Drawer {
     }
 
     bulletSprite(bullet, deltaTime) {
-        this.drawImg(bullet.sprite,
-            bullet.position.x * this.#tileSize,
-            bullet.position.y * this.#tileSize)
-        // const angleInRadians = this.#orientationInRadians[bullet.orientation];
-        // const intervalX = bullet.oldPosition.x + deltaTime * (bullet.position.x - bullet.oldPosition.x);
-        // const intervalY = bullet.oldPosition.y + deltaTime * (bullet.position.y - bullet.oldPosition.y);
-        // const x = (intervalX * this.#tileSize) + this.#tileSize / 2;
-        // const y = (intervalY * this.#tileSize) + this.#tileSize / 2
-        // this.ctx.translate(x, y);
-        // this.ctx.rotate(angleInRadians);
-        // this.drawImg(bullet.sprite,
-        //     -this.#tileSize / 2,
-        //     -this.#tileSize / 2)
-        // this.ctx.rotate(-angleInRadians);
-        // this.ctx.translate(-x, -y);
-    }
-  
+        const angleInRadians = this.#orientationInRadians[bullet.orientation];
+        let x = (bullet.position.x * this.#tileSize) + this.#tileSize / 2;
+        let y = (bullet.position.y * this.#tileSize) + this.#tileSize / 2;
+        this.ctx.translate(x, y);
+        this.ctx.rotate(angleInRadians);
 
+        this.drawImg(
+            bullet.sprite,
+            -this.#tileSize / 2,
+            -this.#tileSize / 2,
+        )
+        this.ctx.rotate(-angleInRadians)
+        this.ctx.translate(-x, -y);
+    }
+
+    
     drawImg(sprite, dx, dy) {
         return this.ctx.drawImage(
             sprite,

@@ -1,10 +1,20 @@
 import { BaseObject } from "./BaseObject.js";
 
 export class Bullet extends BaseObject{
-    constructor(name, position) {
-        super(name, position, 'bullet.png', "down");
+    #tankOrientation
+    constructor(name, position, orientation) {
+        super(name, position, 'bullet.png', orientation, );
         this.position = position;
-        //this.bulletSpeed = 2;
-        
+        this.orientation = orientation;
     }
+
+    // get orientation() {
+    //     return this.#orientation;
+    // }
+
+    // set orientation(newOrientation) {
+    //     if (this.direction[newOrientation]) {
+    //         this.#orientation = newOrientation;
+    //     }
+    // }
 }

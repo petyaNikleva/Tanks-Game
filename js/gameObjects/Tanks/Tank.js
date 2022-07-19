@@ -11,6 +11,7 @@ export class Tank extends BaseObject {
             y: this.position.y
         }
         this.bullet;
+        this.isShooting = false;
        
         this.#orientation = orientation;
         //this.speed = 1;
@@ -69,7 +70,10 @@ export class Tank extends BaseObject {
     shoot() {
         if (!this.bullet)  {
             const nextPosition = this.direction[this.orientation].getNextPosition;
-            this.bullet = new Bullet (`${this.name}-bullet`, nextPosition)
+            this.bullet = new Bullet (`${this.name}-bullet`, nextPosition, this.#orientation);
+            console.log(this.#orientation)
+            console.log(this.bullet);
+            console.log(this)
         }
         return this.bullet;
     }

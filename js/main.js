@@ -47,10 +47,6 @@ function draw(frameCounter) {
     game.walls.forEach((wall) => drawer.wallSprite(wall));
     game.tanks.forEach((tank) => {
         drawer.tankSprite(tank, deltaTime);
-        // if  (tank.bullet) {
-        //     drawer.tankSprite(tank.bullet, deltaTime);
-        // }
-        
     })
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => drawer.bulletSprite(bullet, deltaTime));
@@ -64,8 +60,16 @@ function gameStep() {
         if (tank.isCollised(game.walls, gameMap)) {
             tank.moveBack();
         }
-        const bullet = tank.shoot();
-        game.bullets.push(bullet);
+        if (!tank.isShooting) {
+            const bullet = tank.shoot();
+            bullet.orientation = tank.orientation;
+            game.bullets.push(bullet);
+            // TO DO following:
+            tank.isShooting = true;
+        }
+       
+        
+        
     })
 
 

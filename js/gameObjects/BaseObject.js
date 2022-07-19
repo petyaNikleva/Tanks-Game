@@ -2,7 +2,7 @@ import { possibleDirections } from "../helper/possibleDirections.js";
 
 export class BaseObject {
     //#orientation;
-    constructor(name, position, picture, orientation) {
+    constructor(name, position, picture) {
         this.name = name;
         this.position = position; // {x: 0, y: 10}
         this.picture = picture;
