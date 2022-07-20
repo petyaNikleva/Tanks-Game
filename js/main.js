@@ -46,10 +46,10 @@ function draw(frameCounter) {
     drawer.clearCanvas();
     game.walls.forEach((wall) => drawer.wallSprite(wall));
     game.tanks.forEach((tank) => {
-        drawer.tankSprite(tank, deltaTime);
+        drawer.movableObjectSprite(tank, deltaTime);
     })
     if (game.bullets.length > 0) {
-        game.bullets.forEach((bullet) => drawer.bulletSprite(bullet, deltaTime));
+        game.bullets.forEach((bullet) => drawer.movableObjectSprite(bullet, deltaTime));
     }
     
 }
@@ -64,7 +64,6 @@ function gameStep() {
             const bullet = tank.shoot();
             
             game.bullets.push(bullet);
-            // TO DO following:
             tank.isShooting = true;
         }      
     });

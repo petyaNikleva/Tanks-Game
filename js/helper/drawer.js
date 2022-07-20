@@ -20,36 +20,18 @@ export class Drawer {
             wall.position.y * this.#tileSize)
     }
 
-    tankSprite(tank, deltaTime) {
-        const angleInRadians = this.#orientationInRadians[tank.orientation];
-        const intervalX = tank.oldPosition.x + deltaTime * (tank.position.x - tank.oldPosition.x);
-        const intervalY = tank.oldPosition.y + deltaTime * (tank.position.y - tank.oldPosition.y);
+    movableObjectSprite(movableObject, deltaTime) {
+        const angleInRadians = this.#orientationInRadians[movableObject.orientation];
+        const intervalX = movableObject.oldPosition.x + deltaTime * (movableObject.position.x - movableObject.oldPosition.x);
+        const intervalY = movableObject.oldPosition.y + deltaTime * (movableObject.position.y - movableObject.oldPosition.y);
         const x = (intervalX * this.#tileSize) + this.#tileSize / 2;
         const y = (intervalY * this.#tileSize) + this.#tileSize / 2
         this.ctx.translate(x, y);
         this.ctx.rotate(angleInRadians);
-        this.drawImg(tank.sprite,
+        this.drawImg(movableObject.sprite,
             -this.#tileSize / 2,
             -this.#tileSize / 2)
         this.ctx.rotate(-angleInRadians);
-        this.ctx.translate(-x, -y);
-    }
-
-    bulletSprite(bullet, deltaTime) {
-        const angleInRadians = this.#orientationInRadians[bullet.orientation];
-        const intervalX = bullet.oldPosition.x + deltaTime * (bullet.position.x - bullet.oldPosition.x);
-        const intervalY = bullet.oldPosition.y + deltaTime * (bullet.position.y - bullet.oldPosition.y);
-        const x = (intervalX * this.#tileSize) + this.#tileSize / 2;
-        const y = (intervalY * this.#tileSize) + this.#tileSize / 2
-        this.ctx.translate(x, y);
-        this.ctx.rotate(angleInRadians);
-
-        this.drawImg(
-            bullet.sprite,
-            -this.#tileSize / 2,
-            -this.#tileSize / 2,
-        )
-        this.ctx.rotate(-angleInRadians)
         this.ctx.translate(-x, -y);
     }
 
