@@ -62,15 +62,13 @@ function gameStep() {
         }
         if (!tank.isShooting) {
             const bullet = tank.shoot();
-            bullet.orientation = tank.orientation;
+            
             game.bullets.push(bullet);
             // TO DO following:
             tank.isShooting = true;
-        }
-       
-        
-        
-    })
+        }      
+    });
+    game.bullets.forEach((bullet) => bullet.move())
 
 
     /**

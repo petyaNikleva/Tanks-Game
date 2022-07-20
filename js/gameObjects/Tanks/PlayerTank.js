@@ -12,7 +12,7 @@ export class PlayerTank extends Tank {
         super.move();
         const newDirection = this.newDirectionProvider.dir;
         if (newDirection === this.orientation) {
-            this.direction[this.orientation].forward();
+            this.direction[this.orientation].forward(this.speed);
         } else if (newDirection) {
             this.orientation = newDirection;
         } 

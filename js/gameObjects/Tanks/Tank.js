@@ -1,5 +1,4 @@
 import { BaseObject } from "../BaseObject.js";
-import { possibleDirections } from "../../helper/possibleDirections.js";
 import { Bullet } from "../Bullet.js";
 
 export class Tank extends BaseObject {
@@ -12,32 +11,10 @@ export class Tank extends BaseObject {
         }
         this.bullet;
         this.isShooting = false;
+        this.speed = 1;
        
         this.#orientation = orientation;
-        //this.speed = 1;
-
-        // this.direction = {
-        //     [possibleDirections.up]: {
-        //        "forward": () => this.position.y -= this.speed,
-        //        "back": () => this.position.y += this.speed,
-        //        "getNextPosition": this.position.y - this.speed,
-        //     },
-        //     [possibleDirections.right]: {
-        //         "forward": () => this.position.x += this.speed,
-        //         "back": () => this.position.x -= this.speed,
-        //         "getNextPosition": this.position.x + this.speed,
-        //     },
-        //     [possibleDirections.down]: {
-        //         "forward": () => this.position.y += this.speed,
-        //         "back": () => this.position.y -= this.speed,
-        //         "getNextPosition": this.position.y + this.speed,
-        //     },
-        //     [possibleDirections.left]: {
-        //         "forward": () => this.position.x -= this.speed,
-        //         "back": () => this.position.x += this.speed,
-        //         "getNextPosition": this.position.x - this.speed,
-        //     }
-        // }
+    
     }
 
     get orientation() {
@@ -56,7 +33,7 @@ export class Tank extends BaseObject {
     }
 
     moveBack() {
-        this.direction[this.orientation].back();
+        this.direction[this.orientation].back(this.speed);
     }
 
     isCollised(walls, gameMap) {
@@ -69,11 +46,8 @@ export class Tank extends BaseObject {
 
     shoot() {
         if (!this.bullet)  {
-            const nextPosition = this.direction[this.orientation].getNextPosition;
+            const nextPosition = this.direction[this.orientation].getNextPosition(this.speed);
             this.bullet = new Bullet (`${this.name}-bullet`, nextPosition, this.#orientation);
-            console.log(this.#orientation)
-            console.log(this.bullet);
-            console.log(this)
         }
         return this.bullet;
     }

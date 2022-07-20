@@ -14,7 +14,6 @@ export class Drawer {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-
     wallSprite(wall) {
         this.drawImg(wall.sprite,
             wall.position.x * this.#tileSize,
@@ -38,8 +37,10 @@ export class Drawer {
 
     bulletSprite(bullet, deltaTime) {
         const angleInRadians = this.#orientationInRadians[bullet.orientation];
-        let x = (bullet.position.x * this.#tileSize) + this.#tileSize / 2;
-        let y = (bullet.position.y * this.#tileSize) + this.#tileSize / 2;
+        const intervalX = bullet.oldPosition.x + deltaTime * (bullet.position.x - bullet.oldPosition.x);
+        const intervalY = bullet.oldPosition.y + deltaTime * (bullet.position.y - bullet.oldPosition.y);
+        const x = (intervalX * this.#tileSize) + this.#tileSize / 2;
+        const y = (intervalY * this.#tileSize) + this.#tileSize / 2
         this.ctx.translate(x, y);
         this.ctx.rotate(angleInRadians);
 
@@ -52,7 +53,7 @@ export class Drawer {
         this.ctx.translate(-x, -y);
     }
 
-    
+
     drawImg(sprite, dx, dy) {
         return this.ctx.drawImage(
             sprite,

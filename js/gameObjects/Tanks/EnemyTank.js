@@ -9,7 +9,7 @@ export class EnemyTank extends Tank {
 
     move() {
         super.move();
-        this.direction[this.orientation].forward();
+        this.direction[this.orientation].forward(this.speed);
     }
 
     moveBack() {
