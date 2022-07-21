@@ -9,6 +9,10 @@ export class Game {
         this.walls = [];
         this.bullets = [];
     }
+
+    // destoyObject(gameObject) {
+
+    // }
 }
 
 

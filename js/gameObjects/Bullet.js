@@ -18,17 +18,17 @@ export class Bullet extends BaseObject {
         this.direction[this.orientation].forward(this.speed);
     }
 
-    // isCollised(walls, gameMap, gameBullets) {
-    //     super.isCollised(walls, gameMap);
-    //     let index = gameBullets.indexOf(this);
-    //     indexes.push(index);
+    isCollised(walls, gameMap, tanks) {
+        super.isCollised(walls, gameMap);
+        
+    }
 
-    //     if (indexes.length > 0) {
-    //         indexes.forEach(index => delete game.bullets[index]);
-    //         console.log(game.bullets);
-    //         let filtered = game.bullets.filter(element => element !== undefined);
-    //         game.bullets = filtered;
-    //     }
+    // updateGameBullets(gameBullets) {
+    //     let index = gameBullets.indexOf(this);
+    //     delete gameBullets[index];
+    //     let filtered = gameBullets.filter(element => element !== undefined);
+    //     gameBullets = filtered;
+    //     return gameBullets;
     // }
 
 }

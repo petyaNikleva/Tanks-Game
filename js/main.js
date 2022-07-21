@@ -1,6 +1,7 @@
 import GameMap from "./gameObjects/GameMap.js";
 import { Drawer } from "./helper/Drawer.js";
 import { Game } from "./gameObjects/Game.js";
+import { Wall } from "./gameObjects/Wall.js";
 
 
 const canvas = document.getElementById('game-map');
@@ -21,6 +22,7 @@ game.walls = gameObjects.walls;
  * (to end the game, set IS_GAME_OVER to true)
 */
 game.frameCounter = 0;
+game.objectsToDestoy = [];
 gameLoop();
 
 
@@ -52,7 +54,7 @@ function draw(frameCounter) {
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => drawer.movableObjectSprite(bullet, deltaTime));
     }
-    
+
 }
 
 function gameStep() {
@@ -63,27 +65,37 @@ function gameStep() {
         }
         if (!tank.isShooting) {
             const bullet = tank.shoot();
-            
             game.bullets.push(bullet);
             tank.isShooting = true;
-        }      
+        }
     });
-    let indexes = [];
     game.bullets.forEach((bullet) => {
-        bullet.move()
-        if (bullet.isCollised(game.walls, gameMap, game.bullets)) {
-            let index = game.bullets.indexOf(bullet);
-            
-            indexes.push(index);
+        bullet.move();
+        const wall = game.walls.find(wall => wall.position.x === bullet.position.x && wall.position.y === bullet.position.y);
+        const tank = game.tanks.find(tank => tank.position.x === bullet.position.x && tank.position.y === bullet.position.y);
+        const notIinRange = bullet.position.x < 0 || bullet.position.x > gameMap.width || bullet.position.y < 0 || bullet.position.y > gameMap.height;
+        if (wall) {
+            game.objectsToDestoy.push(wall);
+            game.objectsToDestoy.push(bullet);
+        } else if (tank) {
+            game.objectsToDestoy.push(tank);
+            game.objectsToDestoy.push(bullet);
+        } else if (notIinRange) {
+            game.objectsToDestoy.push(bullet);
         }
     })
-    if (indexes.length > 0) {
-        indexes.forEach(index => delete game.bullets[index]);
-        console.log(game.bullets);
-        let filtered = game.bullets.filter(element => element !== undefined);
-        game.bullets = filtered;
+
+    console.log(game.objectsToDestoy[0] instanceof Wall);
+    if (game.objectsToDestoy.length > 0) {
+        game.walls = game.walls.filter((wall) => wall.name !== game.objectsToDestoy[0].name);
+        game.bullets = game.bullets.filter((bullet) => bullet.name !== game.objectsToDestoy[1].name)
+        game.objectsToDestoy = [];
     }
-   
+
+
+
+
+
 
     /**
           * this is the place where you should do the main steps of the game cycle
