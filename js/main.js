@@ -14,6 +14,7 @@ game.tanks = gameObjects.tanks;
 game.walls = gameObjects.walls;
 
 
+
 /**
  * Game lifecycle
  * calls the gameLoop function every GAME_TIMER_INTERVAL until the game ends
@@ -67,8 +68,22 @@ function gameStep() {
             tank.isShooting = true;
         }      
     });
-    game.bullets.forEach((bullet) => bullet.move())
-
+    let indexes = [];
+    game.bullets.forEach((bullet) => {
+        bullet.move()
+        if (bullet.isCollised(game.walls, gameMap, game.bullets)) {
+            let index = game.bullets.indexOf(bullet);
+            
+            indexes.push(index);
+        }
+    })
+    if (indexes.length > 0) {
+        indexes.forEach(index => delete game.bullets[index]);
+        console.log(game.bullets);
+        let filtered = game.bullets.filter(element => element !== undefined);
+        game.bullets = filtered;
+    }
+   
 
     /**
           * this is the place where you should do the main steps of the game cycle

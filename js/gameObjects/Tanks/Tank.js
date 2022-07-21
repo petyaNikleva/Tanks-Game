@@ -36,13 +36,13 @@ export class Tank extends BaseObject {
         this.direction[this.orientation].back(this.speed);
     }
 
-    isCollised(walls, gameMap) {
-        const collision = walls.some(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
-        const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
-        if (collision || notIinRange) {
-            return true;
-        }
-    }
+    // isCollised(walls, gameMap) {
+    //     const collision = walls.some(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
+    //     const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
+    //     if (collision || notIinRange) {
+    //         return true;
+    //     }
+    // }
 
     shoot() {
         if (!this.bullet)  {
