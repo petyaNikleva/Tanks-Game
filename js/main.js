@@ -2,6 +2,7 @@ import GameMap from "./gameObjects/GameMap.js";
 import { Drawer } from "./helper/Drawer.js";
 import { Game } from "./gameObjects/Game.js";
 import { Wall } from "./gameObjects/Wall.js";
+import { Bullet } from "./gameObjects/Bullet.js";
 
 
 const canvas = document.getElementById('game-map');
@@ -87,10 +88,18 @@ function gameStep() {
 
     console.log(game.objectsToDestoy[0] instanceof Wall);
     if (game.objectsToDestoy.length > 0) {
-        game.walls = game.walls.filter((wall) => wall.name !== game.objectsToDestoy[0].name);
-        game.bullets = game.bullets.filter((bullet) => bullet.name !== game.objectsToDestoy[1].name)
-        game.objectsToDestoy = [];
+        for (let index = 0; index < game.objectsToDestoy.length; index++) {
+            const objToDestoy = game.objectsToDestoy[index];
+            if (objToDestoy instanceof Wall) {
+                game.walls = game.walls.filter((wall) => wall.name !== objToDestoy.name);
+            } else if (objToDestoy instanceof Bullet) {
+                game.bullets = game.bullets.filter((bullet) => bullet.name !== objToDestoy.name)
+            } else if (objToDestoy instanceof Tank) {
+                game.tanks = game.tanks.filter((tank) => tank.name !== objToDestoy.name);
+            }
+        }
     }
+    game.objectsToDestoy = [];
 
 
 
