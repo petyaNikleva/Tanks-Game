@@ -17,7 +17,6 @@ game.walls = gameObjects.walls;
  * (to end the game, set IS_GAME_OVER to true)
 */
 game.frameCounter = 0;
-//game.objectsToDestroy = [];
 gameLoop();
 
 function gameLoop() {
@@ -56,21 +55,25 @@ function gameStep() {
         if (tank.isCollised(game.walls, gameMap)) {
             tank.moveBack();
         }
-        if (!tank.isShooting) {
+        if (tank.isShooting) {
             const bullet = tank.shoot();
             game.bullets.push(bullet);
-            tank.isShooting = true;
+            tank.isShooting = false;
         }
     });
 
-    game.bullets.forEach((bullet) => {
-        bullet.move();
-        game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
-    });
- 
-    if (game.objectsToDestroy.length > 0) {
-        game.objectsToDestroy.forEach((objToDestoy) => game.destroyObjects(objToDestoy));
-        game.objectsToDestroy = [];
+    if (game.bullets.length > 0) {
+        game.bullets.forEach((bullet) => {
+            bullet.move();
+            game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
+        });
+        if (game.objectsToDestroy.length > 0) {
+            game.objectsToDestroy.forEach((objToDestoy) => {
+                game.destroyObjects(objToDestoy);
+            });
+            game.objectsToDestroy = [];
+        }
+        
     }
     
 

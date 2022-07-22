@@ -18,7 +18,6 @@ export class DirectionInput { // to rename it as PlayerInput or PlayerInteractio
         return  this.heldDirections[0];
     }
 
-
     #init() {
         document.addEventListener("keydown", e => {
             const dir = this.map[e.code];
@@ -26,7 +25,7 @@ export class DirectionInput { // to rename it as PlayerInput or PlayerInteractio
                 this.heldDirections.unshift(dir);
             }
             if (e.code === 'Space') {
-                this.tank.isShooting = false;
+                this.tank.isShooting = true;
             }
         });
         document.addEventListener("keyup", e => {

@@ -5,7 +5,7 @@ export class PlayerTank extends Tank {
     constructor(name, position) {
         super(name, position, 'player-tank.png', "up");
         this.newDirectionProvider = new DirectionInput(this);
-        this.isShooting = true;
+        this.isShooting = false;
     }
 
     

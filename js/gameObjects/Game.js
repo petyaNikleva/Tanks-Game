@@ -1,6 +1,7 @@
 import { Wall } from "./Wall.js";
 import { Tank } from "./Tanks/Tank.js";
 import { Bullet } from "./Bullet.js";
+import { EnemyTank } from "./Tanks/EnemyTank.js";
 
 export class Game {
     constructor(){
@@ -37,12 +38,28 @@ export class Game {
             this.walls = this.walls.filter((wall) => wall.name !== objToDestoy.name);
         } else if (objToDestoy instanceof Bullet) {
             this.bullets = this.bullets.filter((bullet) => bullet.name !== objToDestoy.name);
+            this.updateTanksShoot(objToDestoy)    
         } else if (objToDestoy instanceof Tank) {
             this.tanks = this.tanks.filter((tank) => tank.name !== objToDestoy.name);
         }
     } 
 
- 
+    updateTanksShoot(objToDestoy) {
+        let result;
+        for (let index = 0; index < this.tanks.length; index++) {
+            const tank = this.tanks[index];
+            if (objToDestoy?.owner.name === tank.name) {
+                result = index;
+                break;
+            } 
+        }
+        if (result === 0 || result !== undefined) {
+            if (this.tanks[result] instanceof EnemyTank) {
+                this.tanks[result].isShooting = true;
+            }
+            
+        }  
+    }
     
 }
 
