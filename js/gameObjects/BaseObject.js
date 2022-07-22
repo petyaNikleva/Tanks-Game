@@ -57,14 +57,6 @@ export class BaseObject {
         this.sprite.src = `../img/${this.picture}`
     }
 
-    isCollised(walls, gameMap) {
-        const collision = walls.some(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
-        const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
-        if (collision || notIinRange) {
-            return true;
-        }
-    }
-
 }
 
 

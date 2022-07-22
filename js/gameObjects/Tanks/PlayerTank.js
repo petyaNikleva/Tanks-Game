@@ -4,8 +4,11 @@ import { DirectionInput } from "../../helper/DirectionInput.js";
 export class PlayerTank extends Tank {
     constructor(name, position) {
         super(name, position, 'player-tank.png', "up");
-        this.newDirectionProvider = new DirectionInput();
+        this.newDirectionProvider = new DirectionInput(this);
+        this.isShooting = true;
     }
+
+    
   
 
     move() {
@@ -16,5 +19,5 @@ export class PlayerTank extends Tank {
         } else if (newDirection) {
             this.orientation = newDirection;
         } 
-    } 
+    }     
 }

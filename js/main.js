@@ -1,9 +1,6 @@
 import GameMap from "./gameObjects/GameMap.js";
 import { Drawer } from "./helper/Drawer.js";
 import { Game } from "./gameObjects/Game.js";
-import { Wall } from "./gameObjects/Wall.js";
-import { Bullet } from "./gameObjects/Bullet.js";
-
 
 const canvas = document.getElementById('game-map');
 const game = new Game();
@@ -11,11 +8,8 @@ const gameMap = new GameMap();
 const gameObjects = gameMap.generateObjects();
 const drawer = new Drawer(canvas, gameMap.MAP.length, gameMap.MAP[0].length);
 
-
 game.tanks = gameObjects.tanks;
 game.walls = gameObjects.walls;
-
-
 
 /**
  * Game lifecycle
@@ -23,9 +17,8 @@ game.walls = gameObjects.walls;
  * (to end the game, set IS_GAME_OVER to true)
 */
 game.frameCounter = 0;
-game.objectsToDestoy = [];
+//game.objectsToDestroy = [];
 gameLoop();
-
 
 function gameLoop() {
     draw(game.frameCounter);
@@ -55,7 +48,6 @@ function draw(frameCounter) {
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => drawer.movableObjectSprite(bullet, deltaTime));
     }
-
 }
 
 function gameStep() {
@@ -70,36 +62,17 @@ function gameStep() {
             tank.isShooting = true;
         }
     });
+
     game.bullets.forEach((bullet) => {
         bullet.move();
-        const wall = game.walls.find(wall => wall.position.x === bullet.position.x && wall.position.y === bullet.position.y);
-        const tank = game.tanks.find(tank => tank.position.x === bullet.position.x && tank.position.y === bullet.position.y);
-        const notIinRange = bullet.position.x < 0 || bullet.position.x > gameMap.width || bullet.position.y < 0 || bullet.position.y > gameMap.height;
-        if (wall) {
-            game.objectsToDestoy.push(wall);
-            game.objectsToDestoy.push(bullet);
-        } else if (tank) {
-            game.objectsToDestoy.push(tank);
-            game.objectsToDestoy.push(bullet);
-        } else if (notIinRange) {
-            game.objectsToDestoy.push(bullet);
-        }
-    })
-
-    console.log(game.objectsToDestoy[0] instanceof Wall);
-    if (game.objectsToDestoy.length > 0) {
-        for (let index = 0; index < game.objectsToDestoy.length; index++) {
-            const objToDestoy = game.objectsToDestoy[index];
-            if (objToDestoy instanceof Wall) {
-                game.walls = game.walls.filter((wall) => wall.name !== objToDestoy.name);
-            } else if (objToDestoy instanceof Bullet) {
-                game.bullets = game.bullets.filter((bullet) => bullet.name !== objToDestoy.name)
-            } else if (objToDestoy instanceof Tank) {
-                game.tanks = game.tanks.filter((tank) => tank.name !== objToDestoy.name);
-            }
-        }
+        game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
+    });
+ 
+    if (game.objectsToDestroy.length > 0) {
+        game.objectsToDestroy.forEach((objToDestoy) => game.destroyObjects(objToDestoy));
+        game.objectsToDestroy = [];
     }
-    game.objectsToDestoy = [];
+    
 
 
 

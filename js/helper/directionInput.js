@@ -1,7 +1,8 @@
 import { possibleDirections } from "./possibleDirections.js";
 
-export class DirectionInput {
-    constructor() {
+export class DirectionInput { // to rename it as PlayerInput or PlayerInteraction
+    constructor(tank) {
+        this.tank = tank;
         this.heldDirections = [];
 
         this.map = {
@@ -14,14 +15,18 @@ export class DirectionInput {
     }
 
     get dir() {
-        return this.heldDirections[0];
+        return  this.heldDirections[0];
     }
+
 
     #init() {
         document.addEventListener("keydown", e => {
             const dir = this.map[e.code];
             if (dir && this.heldDirections.indexOf(dir) === -1) {
                 this.heldDirections.unshift(dir);
+            }
+            if (e.code === 'Space') {
+                this.tank.isShooting = false;
             }
         });
         document.addEventListener("keyup", e => {
@@ -32,4 +37,7 @@ export class DirectionInput {
             }
         })
     }
+
+    
+
 }
