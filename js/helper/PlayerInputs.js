@@ -1,6 +1,6 @@
 import { possibleDirections } from "./possibleDirections.js";
 
-export class DirectionInput { // to rename it as PlayerInput or PlayerInteraction
+export class PlayerInputs { // to rename it as PlayerInput or PlayerInteraction
     constructor(tank) {
         this.tank = tank;
         this.heldDirections = [];

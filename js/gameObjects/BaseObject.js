@@ -12,19 +12,19 @@ export class BaseObject {
             [possibleDirections.up]: {
                 "forward": (speed) => this.position.y -= speed,
                 "back": (speed) => this.position.y += speed,
-                "getNextPosition": (speed) => {
+                "getPosition": (speed) => {
                     return {
                         x: this.position.x,
-                        y: this.position.y - speed,
+                        y: this.position.y,
                     }
                 }
             },
             [possibleDirections.right]: {
                 "forward": () => this.position.x += this.speed,
                 "back": () => this.position.x -= this.speed,
-                "getNextPosition": (speed) => {
+                "getPosition": (speed) => {
                     return {
-                        x: this.position.x + speed,
+                        x: this.position.x,
                         y: this.position.y
                     }
                 } 
@@ -32,19 +32,19 @@ export class BaseObject {
             [possibleDirections.down]: {
                 "forward": (speed) => this.position.y += speed,
                 "back": (speed) => this.position.y -= speed,
-                "getNextPosition": (speed) => {
+                "getPosition": (speed) => {
                     return {
                         x: this.position.x,
-                        y: this.position.y + speed
+                        y: this.position.y
                     }
                 }
             },
             [possibleDirections.left]: {
                 "forward": () => this.position.x -= this.speed,
                 "back": () => this.position.x += this.speed,
-                "getNextPosition": (speed) => {
+                "getPosition": (speed) => {
                     return {
-                        x: this.position.x - speed,
+                        x: this.position.x,
                         y: this.position.y
                     }
                 } 

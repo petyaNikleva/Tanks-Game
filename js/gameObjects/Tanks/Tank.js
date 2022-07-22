@@ -46,8 +46,8 @@ export class Tank extends BaseObject {
 
     shoot() {
         if (this.isShooting)  {
-            const nextPosition = this.direction[this.orientation].getNextPosition(this.speed);
-            this.bullet = new Bullet (`${this.name}-bullet`, nextPosition, this.#orientation, this);
+            const bulletPosition = this.direction[this.orientation].getPosition(this.speed);
+            this.bullet = new Bullet (`${this.name}-bullet`, bulletPosition, this.#orientation, this);
         }
         return this.bullet;
     }
