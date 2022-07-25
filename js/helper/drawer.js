@@ -19,6 +19,7 @@ export class Drawer {
             wall.position.x * this.#tileSize,
             wall.position.y * this.#tileSize)
     }
+    
 
     movableObjectSprite(movableObject, deltaTime) {
         const angleInRadians = this.#orientationInRadians[movableObject.orientation];

@@ -6,10 +6,8 @@ export class PlayerTank extends Tank {
         super(name, position, 'player-tank.png', "up");
         this.newDirectionProvider = new PlayerInputs(this);
         this.isShooting = false;
+        this.spacePushed = false;
     }
-
-    
-  
 
     move() {
         super.move();

@@ -33,6 +33,11 @@ function gameLoop() {
         setTimeout(function () {
             gameLoop()
         }, game.GAME_TIMER_INTERVAL);
+    } else {
+        setTimeout(function () {
+            alert(game.message)
+        }, game.GAME_TIMER_INTERVAL);
+        
     }
     game.frameCounter++;
 }

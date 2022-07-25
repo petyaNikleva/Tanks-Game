@@ -24,8 +24,9 @@ export class PlayerInputs { // to rename it as PlayerInput or PlayerInteraction
             if (dir && this.heldDirections.indexOf(dir) === -1) {
                 this.heldDirections.unshift(dir);
             }
-            if (e.code === 'Space') {
+            if (e.code === 'Space' && this.tank.spacePushed === false) {
                 this.tank.isShooting = true;
+                this.tank.spacePushed = true;
             }
         });
         document.addEventListener("keyup", e => {
