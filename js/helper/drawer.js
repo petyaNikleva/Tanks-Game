@@ -1,4 +1,5 @@
 import { possibleDirections } from "./possibleDirections.js";
+import { Еxplosion} from "../gameObjects/Explosion.js"
 
 export class Drawer {
     #tileSize = 64;
@@ -18,6 +19,12 @@ export class Drawer {
         this.drawImg(wall.sprite,
             wall.position.x * this.#tileSize,
             wall.position.y * this.#tileSize)
+    }
+
+    explosionSprite(explosion) {
+        this.drawImg(explosion.sprite,
+            explosion.position.x * this.#tileSize,
+            explosion.position.y * this.#tileSize)
     }
     
 

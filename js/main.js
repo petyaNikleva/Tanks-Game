@@ -1,6 +1,8 @@
 import GameMap from "./gameObjects/GameMap.js";
 import { Drawer } from "./helper/Drawer.js";
 import { Game } from "./gameObjects/Game.js";
+import { Еxplosion } from "./gameObjects/Explosion.js"
+
 
 const canvas = document.getElementById('game-map');
 const game = new Game();
@@ -45,6 +47,12 @@ function gameLoop() {
 function draw(frameCounter) {
     const deltaTime = frameCounter / game.FRAMES_COUNTER;
     drawer.clearCanvas();
+    if (game.objectsToDestroy.length > 0) {
+        game.objectsToDestroy.forEach(objToDestroy => drawer.explosionSprite(new Еxplosion(objToDestroy.name, objToDestroy.position, 'boom.png'))
+    )
+        game.objectsToDestroy = [];
+    }
+   
     game.walls.forEach((wall) => drawer.wallSprite(wall));
     game.tanks.forEach((tank) => {
         drawer.movableObjectSprite(tank, deltaTime);
@@ -75,8 +83,9 @@ function gameStep() {
         if (game.objectsToDestroy.length > 0) {
             game.objectsToDestroy.forEach((objToDestoy) => {
                 game.destroyObjects(objToDestoy);
+
             });
-            game.objectsToDestroy = [];
+           //game.objectsToDestroy = [];
         }
         
     }
