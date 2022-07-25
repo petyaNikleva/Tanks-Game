@@ -47,18 +47,18 @@ function gameLoop() {
 function draw(frameCounter) {
     const deltaTime = frameCounter / game.FRAMES_COUNTER;
     drawer.clearCanvas();
-    if (game.objectsToDestroy.length > 0) {
-        game.objectsToDestroy.forEach(objToDestroy => drawer.explosionSprite(new Еxplosion(objToDestroy.name, objToDestroy.position, 'boom.png'))
-    )
-        game.objectsToDestroy = [];
-    }
-   
     game.walls.forEach((wall) => drawer.wallSprite(wall));
     game.tanks.forEach((tank) => {
         drawer.movableObjectSprite(tank, deltaTime);
     })
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => drawer.movableObjectSprite(bullet, deltaTime));
+    }
+    
+    if (game.objectsToDestroy.length > 0) {
+        game.objectsToDestroy.forEach(objToDestroy => drawer.explosionSprite(new Еxplosion(objToDestroy.name, objToDestroy.position, 'boom.png'))
+    )
+        game.objectsToDestroy = [];
     }
 }
 
@@ -85,7 +85,6 @@ function gameStep() {
                 game.destroyObjects(objToDestoy);
 
             });
-           //game.objectsToDestroy = [];
         }
         
     }

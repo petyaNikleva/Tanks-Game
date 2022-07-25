@@ -42,12 +42,18 @@ export class Game {
     reduceTankLives(tank) {
         if (tank instanceof EnemyTank) {
             this.enemyTankLives--;
+            
             if (this.enemyTankLives == 0) {
                 this.IS_GAME_OVER = true;
                 this.message = "Congrats. You Won."
             }
         } else if (tank instanceof PlayerTank) {
             this.playerTankLives--;
+            const playerTank = new PlayerTank('playertank' + "4" + '-' + "13", {
+                x: 4,
+                y: 13
+            })
+            this.tanks.push(playerTank)
             if (this.playerTankLives == 0) {
                 this.IS_GAME_OVER = true;
                 this.message = "Game over."
