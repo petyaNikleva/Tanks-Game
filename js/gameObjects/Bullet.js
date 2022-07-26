@@ -10,7 +10,7 @@ export class Bullet extends BaseObject {
             y: this.position.y
         }
         this.owner = owner;
-        this.speed = 1;
+        this.speed = 2;
     }
 
     move() {

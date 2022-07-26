@@ -2,7 +2,7 @@ import GameMap from "./gameObjects/GameMap.js";
 import { Drawer } from "./helper/Drawer.js";
 import { Game } from "./gameObjects/Game.js";
 import { Еxplosion } from "./gameObjects/Explosion.js"
-
+import { Tank } from "./gameObjects/Tanks/Tank.js";
 
 const canvas = document.getElementById('game-map');
 const game = new Game();
@@ -83,7 +83,9 @@ function gameStep() {
         if (game.objectsToDestroy.length > 0) {
             game.objectsToDestroy.forEach((objToDestroy) => {
                 game.destroyObjects(objToDestroy);
-                game.createNewTank(objToDestroy, gameMap)
+                if (objToDestroy instanceof Tank) {
+                    game.createNewTank(objToDestroy, gameMap)
+                }
             });
         }
         

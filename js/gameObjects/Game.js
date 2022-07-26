@@ -39,8 +39,8 @@ export class Game {
         return this.objectsToDestroy;
     }
 
-    createNewTank(objToDestroy, gameMap) {
-        if (objToDestroy instanceof PlayerTank) {
+    createNewTank(tank, gameMap) {
+        if (tank instanceof PlayerTank) {
             const position = gameMap.MAP_BASES.PLAYER_BASE_POSITIONS[0];
             const playerTank = new PlayerTank('playertank' + position.x + '-' + position.y, {
                 x: position.y,
@@ -48,7 +48,7 @@ export class Game {
             })
             this.tanks.push(playerTank)
         }
-        else if (objToDestroy instanceof EnemyTank) {
+        else {
             const random = Math.floor(Math.random() * gameMap.MAP_BASES.ENEMY_BASE_POSITIONS.length);
             const position = gameMap.MAP_BASES.ENEMY_BASE_POSITIONS[random];
             const enemyTank = new EnemyTank('enemytank' + position.x + '-' + position.y, {
@@ -85,7 +85,6 @@ export class Game {
         } else if (objToDestoy instanceof Tank) {
             this.tanks = this.tanks.filter((tank) => tank.name !== objToDestoy.name);
             this.reduceTankLives(objToDestoy);
-            
         }
     }
 
