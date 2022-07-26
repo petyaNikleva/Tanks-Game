@@ -19,11 +19,12 @@ const MAP = [
     [0, 0, 0, 0, 1, 3, 0, 3, 0, 0, 0, 0, 0]
 ];
 
-// let MAP_LEGEND = {
-//     PLAYER_BASE: 1,
-//     ENEMY_BASE: 2,
-//     WALL: 3
-// }
+const MAP_LEGEND = {
+    PLAYER_BASE: 1,
+    ENEMY_BASE: 2,
+    WALL: 3
+}
+
 
 
 export default class GameMap {
@@ -31,6 +32,16 @@ export default class GameMap {
         this.MAP = MAP;
         this.width = MAP[0].length - 1;
         this.height = MAP.length - 1;
+        this.MAP_BASES = {
+            PLAYER_BASE_POSITIONS: [
+                {x: 13, y: 4}
+            ],
+            ENEMY_BASE_POSITIONS: [
+                { x: 0, y: 0 },
+                { x: 0, y: 6 },
+                { x: 0, y: 12 }
+            ]
+        }
     }
 
     generateObjects() {
@@ -52,7 +63,8 @@ export default class GameMap {
                             x: column,
                             y: row
                         })
-                        tanks.push(playerTank)
+                        tanks.push(playerTank);
+                        //this.MAP_BASES.PLAYER_BASE_POSITIONS.push(playerTank.position);
                         break;
                     case 2:
                         const enemyTank = new EnemyTank('EnemyTank' + row + '-' + column, {
@@ -60,6 +72,7 @@ export default class GameMap {
                             y: row
                         })
                         tanks.push(enemyTank);
+                        //this.MAP_BASES.ENEMY_BASE_POSITIONS.push(enemyTank.position);
                         break;
                 }
             }

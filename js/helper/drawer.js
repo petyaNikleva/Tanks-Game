@@ -1,5 +1,4 @@
 import { possibleDirections } from "./possibleDirections.js";
-import { Еxplosion} from "../gameObjects/Explosion.js"
 
 export class Drawer {
     #tileSize = 64;

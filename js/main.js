@@ -81,9 +81,9 @@ function gameStep() {
             game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
         });
         if (game.objectsToDestroy.length > 0) {
-            game.objectsToDestroy.forEach((objToDestoy) => {
-                game.destroyObjects(objToDestoy);
-
+            game.objectsToDestroy.forEach((objToDestroy) => {
+                game.destroyObjects(objToDestroy);
+                game.createNewTank(objToDestroy, gameMap)
             });
         }
         

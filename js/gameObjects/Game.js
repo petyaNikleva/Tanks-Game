@@ -39,6 +39,26 @@ export class Game {
         return this.objectsToDestroy;
     }
 
+    createNewTank(objToDestroy, gameMap) {
+        if (objToDestroy instanceof PlayerTank) {
+            const position = gameMap.MAP_BASES.PLAYER_BASE_POSITIONS[0];
+            const playerTank = new PlayerTank('playertank' + position.x + '-' + position.y, {
+                x: position.y,
+                y: position.x
+            })
+            this.tanks.push(playerTank)
+        }
+        else if (objToDestroy instanceof EnemyTank) {
+            const random = Math.floor(Math.random() * gameMap.MAP_BASES.ENEMY_BASE_POSITIONS.length);
+            const position = gameMap.MAP_BASES.ENEMY_BASE_POSITIONS[random];
+            const enemyTank = new EnemyTank('enemytank' + position.x + '-' + position.y, {
+                x: position.y,
+                y: position.x
+            })
+            this.tanks.push(enemyTank);
+        }
+    }
+
     reduceTankLives(tank) {
         if (tank instanceof EnemyTank) {
             this.enemyTankLives--;
@@ -49,11 +69,6 @@ export class Game {
             }
         } else if (tank instanceof PlayerTank) {
             this.playerTankLives--;
-            const playerTank = new PlayerTank('playertank' + "4" + '-' + "13", {
-                x: 4,
-                y: 13
-            })
-            this.tanks.push(playerTank)
             if (this.playerTankLives == 0) {
                 this.IS_GAME_OVER = true;
                 this.message = "Game over."
