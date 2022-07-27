@@ -64,7 +64,6 @@ export default class GameMap {
                             y: row
                         })
                         tanks.push(playerTank);
-                        //this.MAP_BASES.PLAYER_BASE_POSITIONS.push(playerTank.position);
                         break;
                     case 2:
                         const enemyTank = new EnemyTank('EnemyTank' + row + '-' + column, {
@@ -72,7 +71,6 @@ export default class GameMap {
                             y: row
                         })
                         tanks.push(enemyTank);
-                        //this.MAP_BASES.ENEMY_BASE_POSITIONS.push(enemyTank.position);
                         break;
                 }
             }

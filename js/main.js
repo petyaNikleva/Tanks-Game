@@ -46,7 +46,7 @@ function gameLoop() {
 function draw(frameCounter) {
     const deltaTime = frameCounter / game.FRAMES_COUNTER;
     drawer.clearCanvas();
-    game.walls.forEach((wall) => drawer.wallSprite(wall));
+    game.walls.forEach((wall) => drawer.staticSprite(wall));
     game.tanks.forEach((tank) => {
         drawer.movableObjectSprite(tank, deltaTime);
     })
@@ -54,7 +54,7 @@ function draw(frameCounter) {
         game.bullets.forEach((bullet) => drawer.movableObjectSprite(bullet, deltaTime));
     }
     if (game.objectsToDestroy.length > 0) {
-        game.objectsToDestroy.forEach(objToDestroy => drawer.explosionSprite(new Еxplosion(objToDestroy.name, objToDestroy.position, 'boom.png'))
+        game.objectsToDestroy.forEach(objToDestroy => drawer.staticSprite(new Еxplosion(objToDestroy.name, objToDestroy.position, 'boom.png'))
         )
         game.objectsToDestroy = [];
     }

@@ -87,7 +87,6 @@ export class Game {
         }
     }
 
-
     updateEnemyTanksShoot(objToDestoy) {
         let result;
         for (let index = 0; index < this.tanks.length; index++) {

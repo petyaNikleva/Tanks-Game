@@ -14,18 +14,11 @@ export class Drawer {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    wallSprite(wall) {
-        this.drawImg(wall.sprite,
-            wall.position.x * this.#tileSize,
-            wall.position.y * this.#tileSize)
+    staticSprite(staticObject) {
+        this.drawImg(staticObject.sprite,
+            staticObject.position.x * this.#tileSize,
+            staticObject.position.y * this.#tileSize)
     }
-
-    explosionSprite(explosion) {
-        this.drawImg(explosion.sprite,
-            explosion.position.x * this.#tileSize,
-            explosion.position.y * this.#tileSize)
-    }
-    
 
     movableObjectSprite(movableObject, deltaTime) {
         const angleInRadians = this.#orientationInRadians[movableObject.orientation];
