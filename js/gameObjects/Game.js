@@ -62,7 +62,6 @@ export class Game {
     reduceTankLives(tank) {
         if (tank instanceof EnemyTank) {
             this.enemyTankLives--;
-            
             if (this.enemyTankLives == 0) {
                 this.IS_GAME_OVER = true;
                 this.message = "Congrats. You Won."
@@ -113,7 +112,10 @@ export class Game {
         }
     }
 
-    
+    updateTankLivesView(playerScoreElement, enemyScoreElement) {
+        playerScoreElement.textContent = this.playerTankLives;
+        enemyScoreElement.textContent = this.enemyTankLives;
+    }
 }
 
 

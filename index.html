@@ -13,15 +13,18 @@
 </head>
 
 <body>
-  <main>  
-    
+  <main>
+
     <section id="game-field">
       <h2>ISsoft: Full-stack web development</h2>
-      
+      <div id="score">
+        <h3>Player Tank Lives: <span id="player-score"></span></h3>
+        <h3>Enemy Tank Lives: <span id="enemy-score"></span></h3>
+      </div>
       <canvas id="game-map">
 
       </canvas>
-    
+
     </section>
 
     <section id="legend">
@@ -45,8 +48,6 @@
 
 
   <script src="js/vendor/jquery-3.3.1.min.js"></script>
-  
-  <!-- <script src="js/map.js"></script> -->
   <script src="js/main.js" type="module"></script>
 </body>
 
