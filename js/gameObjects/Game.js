@@ -21,8 +21,9 @@ export class Game {
     }
 
     checkForObjectsToDestroy(thisMap, bullet) {
-        const wall = this.walls.find(wall => wall.position.x === bullet.position.x && wall.position.y === bullet.position.y);
-        const tank = this.tanks.find(tank => tank.position.x === bullet.position.x && tank.position.y === bullet.position.y);
+        const wall = this.walls.find(wall => wall.position.x === bullet.position.x && wall.position.y === bullet.position.y); // to reuse down
+        const tank = this.tanks.find(tank => tank.position.x === bullet.position.x && tank.position.y === bullet.position.y); // to reuse up with
+        //just one method object
         const notIinRange = bullet.position.x < 0 || bullet.position.x > thisMap.width || bullet.position.y < 0 || bullet.position.y > thisMap.height;
 
         if (wall) {
@@ -39,7 +40,7 @@ export class Game {
         return this.objectsToDestroy;
     }
 
-    createNewTank(tank, gameMap) {
+    createNewTank(tank, gameMap) { // the game should do it ok 
         if (tank instanceof PlayerTank) {
             const position = gameMap.MAP_BASES.PLAYER_BASE_POSITIONS[0];
             const playerTank = new PlayerTank('playertank' + position.x + '-' + position.y, {
@@ -59,7 +60,7 @@ export class Game {
         }
     }
 
-    reduceTankLives(tank) {
+    reduceTankLives(tank) { // tank logic
         if (tank instanceof EnemyTank) {
             this.enemyTankLives--;
             if (this.enemyTankLives == 0) {
@@ -87,7 +88,7 @@ export class Game {
         }
     }
 
-    updateEnemyTanksShoot(objToDestoy) {
+    updateEnemyTanksShoot(objToDestoy) { 
         let result;
         for (let index = 0; index < this.tanks.length; index++) {
             const tank = this.tanks[index];
@@ -97,7 +98,7 @@ export class Game {
             }
         }
         if (result === 0 || result !== undefined) {
-            if (this.tanks[result] instanceof EnemyTank) {
+            if (this.tanks[result] instanceof EnemyTank) { // tank logic
                 this.tanks[result].isShooting = true;
             } else if (this.tanks[result] instanceof PlayerTank) {
                 this.tanks[result].spacePushed = false;
@@ -105,13 +106,13 @@ export class Game {
         }
     }
 
-    checkIsFriendlyFire(tank, bullet) {
+    checkIsFriendlyFire(tank, bullet) { // Tank class get only bullet and returns true 
         if (bullet.owner instanceof EnemyTank && tank instanceof EnemyTank) {
             return true;
         }
     }
 
-    updateTankLivesView(playerScoreElement, enemyScoreElement) {
+    updateTankLivesView(playerScoreElement, enemyScoreElement) { // game logic ok
         playerScoreElement.textContent = this.playerTankLives;
         enemyScoreElement.textContent = this.enemyTankLives;
     }

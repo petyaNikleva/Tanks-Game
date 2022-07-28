@@ -63,7 +63,7 @@ function draw(frameCounter) {
 function gameStep() {
     game.tanks.forEach((tank) => {
         tank.move();
-        if (tank.isCollised(game.walls, gameMap)) {
+        if (tank.isCollided(game.walls, gameMap, game.tanks)) {
             tank.moveBack();
         }
         if (tank.isShooting) {
@@ -76,7 +76,12 @@ function gameStep() {
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => {
             bullet.move();
-            game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
+            let test = bullet.isCollided(game.walls, gameMap, game.tanks)
+            if (test) {
+                console.log(test)
+                game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
+            }
+             //collision - return result - colision - to obj to destroy 
         });
         if (game.objectsToDestroy.length > 0) {
             game.objectsToDestroy.forEach((objToDestroy) => {
