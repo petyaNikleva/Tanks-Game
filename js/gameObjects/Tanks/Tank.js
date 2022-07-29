@@ -3,17 +3,17 @@ import { Bullet } from "../Bullet.js";
 
 export class Tank extends BaseObject {
     #orientation;
-    constructor(name, position, picture, orientation) {
-        super(name, position, picture, orientation);
+    constructor(name, position, picture, orientation, type) {
+        super(name, position, picture, type);
         this.oldPosition = {
             x: this.position.x,
             y: this.position.y
         }
         this.isShooting = true;
         //this.speed = 1;
-       
+
         this.#orientation = orientation;
-    
+
     }
 
     get orientation() {
@@ -33,7 +33,7 @@ export class Tank extends BaseObject {
 
     moveBack() {
         this.direction[this.orientation].back(this.speed);
-        
+
     }
 
     // isCollised(walls, gameMap) {
@@ -45,9 +45,9 @@ export class Tank extends BaseObject {
     // }
 
     shoot() {
-        if (this.isShooting)  {
+        if (this.isShooting) {
             const bulletPosition = this.direction[this.orientation].getPosition(this.speed);
-            this.bullet = new Bullet (`${this.name}-bullet`, bulletPosition, this.#orientation, this);
+            this.bullet = new Bullet(`${this.name}-bullet`, bulletPosition, this.#orientation, this);
         }
         return this.bullet;
     }

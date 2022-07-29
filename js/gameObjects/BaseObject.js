@@ -1,8 +1,9 @@
 import { possibleDirections } from "../helper/possibleDirections.js";
 
 export class BaseObject {
-    constructor(name, position, picture) {
+    constructor(name, position, picture, type) {
         this.name = name;
+        this.type = type;
         this.position = position;
         this.picture = picture;
         this.#createSprite();
@@ -62,9 +63,7 @@ export class BaseObject {
         const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
         const tanksToCheck = this.getTheRestOftanks(tanks);
         const collisionWithTank = tanksToCheck.some(tank => tank.position.x === this.position.x && tank.position.y === this.position.y);
-        if (collisionWiwhWall || notIinRange || collisionWithTank) {
-            return true;
-        }
+        return collisionWiwhWall || notIinRange || collisionWithTank;        
     }
 
     getTheRestOftanks(tanks) {
@@ -78,7 +77,6 @@ export class BaseObject {
         }
        return restOfTanks;
     }
-    
 
 }
 

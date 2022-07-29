@@ -1,8 +1,9 @@
 import { BaseObject } from "./BaseObject.js";
+import { objectTypes } from "../helper/objectTypes.js";
 
 export class Bullet extends BaseObject {
     constructor(name, position, orientation, owner) {
-        super(name, position, 'bullet.png');
+        super(name, position, 'bullet.png', objectTypes.bullet);
         this.position = position;
         this.orientation = orientation;
         this.oldPosition = {
@@ -19,16 +20,20 @@ export class Bullet extends BaseObject {
         this.direction[this.orientation].forward(this.speed);
     }
 
-    isCollided(walls, gameMap, tanks) {
-        super.isCollided(walls, gameMap, tanks);
-        const collidedObject = tanks.find(tank => tank.position.x === this.position.x && tank.position.y === this.position.y) 
+    isCollided(walls, tanks) {
+        return tanks.find(tank => tank.position.x === this.position.x && tank.position.y === this.position.y) 
                         || walls.find(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
-        const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
-        if (collidedObject || notIinRange) {
-            return {
-                collidedObject
-            }
+    }
+
+    notInRange(gameMap) {
+        return this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
+    }
+    
+    isFriendlyFire(collidedObject) {
+        if (collidedObject) {
+            return collidedObject.type == this.owner.type;
         }
+        
     }
 
 }

@@ -1,10 +1,11 @@
 import { Tank } from "./Tank.js";
 import { possibleDirections } from "../../helper/possibleDirections.js";
+import { objectTypes } from "../../helper/objectTypes.js";
 
 export class EnemyTank extends Tank {
 
     constructor(name, position) {
-        super(name, position, 'enemy-tank.png', "down");
+        super(name, position, 'enemy-tank.png', "down", objectTypes.enemyTank);
     }
 
     move() {

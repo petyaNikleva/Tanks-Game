@@ -1,9 +1,10 @@
 import { Tank } from "./Tank.js";
 import { PlayerInputs } from "../../helper/PlayerInputs.js";
+import { objectTypes } from "../../helper/objectTypes.js";
 
 export class PlayerTank extends Tank {
     constructor(name, position) {
-        super(name, position, 'player-tank.png', "up");
+        super(name, position, 'player-tank.png', "up", objectTypes.playerTank);
         this.newDirectionProvider = new PlayerInputs(this);
         this.isShooting = false;
         this.spacePushed = false;

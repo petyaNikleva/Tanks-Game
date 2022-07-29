@@ -76,17 +76,18 @@ function gameStep() {
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => {
             bullet.move();
-            const collision = bullet.isCollided(game.walls, gameMap, game.tanks)
-            if (collision) {
-                if(collision.collidedObject) {
-                    //if(!collision?.collisedObject.checkIsFriendlyFire(bullet))
-                    game.objectsToDestroy.push(collision.collidedObject);
-                }
-                game.objectsToDestroy.push(bullet);
-                
+            if (bullet.notInRange(gameMap)) {
+                game.objectsToDestroy.push(bullet); 
             }
-            // destroy??
-             //collision - return result - colision - to obj to destroy 
+            else {
+                const collidedObject = bullet.isCollided(game.walls, game.tanks)
+                if (collidedObject) {
+                    if(!bullet.isFriendlyFire(collidedObject)) {
+                        game.objectsToDestroy.push(collidedObject);
+                        game.objectsToDestroy.push(bullet);    
+                    }            
+                }                
+            }
         });
         if (game.objectsToDestroy.length > 0) {
             game.objectsToDestroy.forEach((objToDestroy) => {
