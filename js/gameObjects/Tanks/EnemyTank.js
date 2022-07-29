@@ -23,6 +23,12 @@ export class EnemyTank extends Tank {
         this.orientation = randomOrientation;
     }
 
+    checkIsFriendlyFire(bullet) { // Tank class get only bullet and returns true 
+         if (bullet.owner instanceof EnemyTank) {
+            return true;
+        }
+    }
+
 }
 
 

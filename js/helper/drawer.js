@@ -6,7 +6,7 @@ export class Drawer {
         canvas.height = height * this.#tileSize;
         canvas.width = width * this.#tileSize;
         this.canvas = canvas;
-        this.ctx = canvas.getContext('2d')
+        this.ctx = canvas.getContext('2d');
     }
 
     clearCanvas() {

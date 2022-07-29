@@ -76,11 +76,16 @@ function gameStep() {
     if (game.bullets.length > 0) {
         game.bullets.forEach((bullet) => {
             bullet.move();
-            let test = bullet.isCollided(game.walls, gameMap, game.tanks)
-            if (test) {
-                console.log(test)
-                game.objectsToDestroy = game.checkForObjectsToDestroy(gameMap, bullet);
+            const collision = bullet.isCollided(game.walls, gameMap, game.tanks)
+            if (collision) {
+                if(collision.collidedObject) {
+                    //if(!collision?.collisedObject.checkIsFriendlyFire(bullet))
+                    game.objectsToDestroy.push(collision.collidedObject);
+                }
+                game.objectsToDestroy.push(bullet);
+                
             }
+            // destroy??
              //collision - return result - colision - to obj to destroy 
         });
         if (game.objectsToDestroy.length > 0) {

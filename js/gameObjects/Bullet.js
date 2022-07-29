@@ -20,15 +20,13 @@ export class Bullet extends BaseObject {
     }
 
     isCollided(walls, gameMap, tanks) {
-        //TO DO ask how?
         super.isCollided(walls, gameMap, tanks);
-        const collisionWithTank = tanks.find(tank => tank.position.x === this.position.x && tank.position.y === this.position.y); 
-        const collisionWithWall = walls.find(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
+        const collidedObject = tanks.find(tank => tank.position.x === this.position.x && tank.position.y === this.position.y) 
+                        || walls.find(wall => wall.position.x === this.position.x && wall.position.y === this.position.y);
         const notIinRange = this.position.x < 0 || this.position.x > gameMap.width || this.position.y < 0 || this.position.y > gameMap.height;
-        if (collisionWithTank || collisionWithWall || notIinRange) {
+        if (collidedObject || notIinRange) {
             return {
-                collisionWithTank,
-                collisionWithWall,
+                collidedObject
             }
         }
     }

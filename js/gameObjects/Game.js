@@ -106,11 +106,11 @@ export class Game {
         }
     }
 
-    checkIsFriendlyFire(tank, bullet) { // Tank class get only bullet and returns true 
-        if (bullet.owner instanceof EnemyTank && tank instanceof EnemyTank) {
-            return true;
-        }
-    }
+    // checkIsFriendlyFire(tank, bullet) { // Tank class get only bullet and returns true 
+    //     if (bullet.owner instanceof EnemyTank && tank instanceof EnemyTank) {
+    //         return true;
+    //     }
+    // }
 
     updateTankLivesView(playerScoreElement, enemyScoreElement) { // game logic ok
         playerScoreElement.textContent = this.playerTankLives;
